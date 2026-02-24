@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="de">
 <head>
@@ -17,23 +18,30 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --accent: #7a5c2a;
-    --text: #2a1f0e;
-    --text-muted: #8a7560;
-    --bg-card: #e8dcc8;
-    --bg-form: #ede3d2;
+    --accent: rgba(255,255,255,0.8);
+    --accent-dim: rgba(255,255,255,0.06);
+    --text: #ffffff;
+    --text-muted: rgba(255,255,255,0.4);
+    --border: rgba(255,255,255,0.18);
+    --surface: rgba(255,255,255,0.05);
+    --surface2: rgba(255,255,255,0.03);
+    --success: #55aa77;
+    --danger: rgba(220,100,100,0.9);
   }
   body {
     font-family: 'DM Sans', sans-serif;
     background: url('https://i.imgur.com/vDRf0fc.jpg') center center / cover fixed no-repeat;
-    color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center;
+    color: var(--text); min-height: 100vh; display: flex; flex-direction: column;
+    align-items: center;
+    font-size: clamp(13px, 1.1vw, 17px);
   }
-  main { display:flex; align-items:flex-start; justify-content:center; padding:0 1rem 3rem; width:100%; margin-top: 2rem; }
-  
+
+  main { display:flex; align-items:flex-start; justify-content:center; padding:0 1rem 3rem; width:100%; }
+
   /* --- HEADER UPDATE --- */
   .card-header {
     background:#2e2a24;
-    padding:0.7rem 1.8rem;
+    padding:0.7rem 1.8rem; /* SCHMALERER BALKEN */
     display:flex;
     align-items:center;
     gap:1.2rem;
@@ -42,59 +50,77 @@
     z-index: 10;
   }
   .card-header-logo-box {
-    width:115px;
+    width:115px; /* GRÖSSER */
     height:115px;
     background:#1a1510;
     border:1px solid rgba(180,145,80,0.35);
-    box-shadow:0 8px 20px rgba(0,0,0,0.4);
+    box-shadow:0 8px 20px rgba(0,0,0,0.4), inset 0 0 8px rgba(0,0,0,0.4);
     border-radius:4px;
     display:flex; align-items:center; justify-content:center;
     overflow:hidden; flex-shrink:0;
     position: relative;
-    top: 35px; 
+    top: 35px; /* ÜBERLAPPUNG NACH UNTEN */
     margin-bottom: -25px;
     z-index: 11;
   }
-  .card-header-logo { width:115%; height:115%; object-fit:cover; display:block; }
-  .card-header-title { font-size:0.75rem; color:rgba(235,215,175,0.9); letter-spacing:0.3em; text-transform:uppercase; }
+  .card-header-logo { 
+    width:125%; /* GEZOOMT */
+    height:125%; 
+    object-fit:cover; 
+    display:block; 
+  }
+  .card-header-title {
+    font-family:'DM Sans',sans-serif;
+    font-size:0.75rem;
+    font-weight:400;
+    color:rgba(235,215,175,0.9);
+    letter-spacing:0.3em;
+    text-transform:uppercase;
+  }
 
-  /* --- MAIN CARD --- */
   .main-card {
     display:grid; grid-template-columns:1fr;
     width:100%; max-width:480px;
-    background: var(--bg-card);
-    box-shadow:0 20px 60px rgba(0,0,0,0.5);
-    overflow: visible; /* Wichtig für das überlappende Logo */
+    background:#e8dcc8;
+    box-shadow:0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(122,92,42,0.2);
+    overflow: visible; /* DAMIT DAS LOGO ÜBERLAPPEN DARF */
   }
-  .calendar-panel { padding: 3.5rem 1.8rem 1.6rem; border-bottom:1px solid rgba(122,92,42,0.15); }
-  .form-panel { padding:1.6rem 1.8rem; background: var(--bg-form); }
+
+  /* --- RESTLICHE ORIGINALE STYLES --- */
+  .calendar-panel { padding:3.5rem 1.8rem 1.6rem; border-bottom:1px solid rgba(122,92,42,0.15); background:#e8dcc8; }
+  .form-panel { padding:1.6rem 1.8rem; background:#ede3d2; }
 
   @media (min-width:900px) {
-    .main-card { grid-template-columns: 1fr 1fr; max-width: 900px; }
+    main { padding: clamp(1.5rem, 4vh, 4rem) clamp(1rem, 3vw, 3rem); align-items: center; min-height: 100vh; }
+    .main-card { grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; max-width: clamp(700px, 68vw, 1000px); width: 100%; }
     .card-header { grid-column: 1 / -1; }
-    .card-header-logo-box { width: 140px; height: 140px; top: 45px; }
+    .card-header-logo-box { width:140px; height:140px; top: 45px; }
     .calendar-panel { border-bottom: none; border-right: 1px solid rgba(122,92,42,0.15); padding-top: 5rem; }
   }
 
-  /* Kalender & Form Styles */
-  .cal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
-  .cal-month { font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color: var(--text-muted); }
-  .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
-  .cal-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:0.85rem; position:relative; }
-  .cal-day.selected { background: rgba(122,92,42,0.2); font-weight: bold; border: 1px solid var(--accent); }
-  .cal-day.today { color: var(--accent); font-weight: bold; }
-  .cal-day.past { opacity: 0.3; cursor: default; }
+  .cal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:0.8rem; }
+  .cal-month { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:400; letter-spacing:0.3em; text-transform:uppercase; color:#8a7560; }
+  .cal-nav { display:flex; gap:0.3rem; }
+  .cal-nav button { background:transparent; border:1px solid rgba(122,92,42,0.25); color:#8a7560; width:26px; height:26px; border-radius:0; cursor:pointer; font-size:0.75rem; display:flex; align-items:center; justify-content:center; }
+  .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; }
+  .cal-day-label { text-align:center; font-size:0.6rem; font-weight:400; letter-spacing:0.07em; text-transform:uppercase; color:#8a7560; padding-bottom:0.4rem; }
+  .cal-day { aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; font-size:0.82rem; color:#2a1f0e; border:1px solid transparent; position:relative; }
+  .cal-day.today { color:#7a5c2a; font-weight:700; }
+  .cal-day.selected { background:rgba(122,92,42,0.15); border-color:#7a5c2a; font-weight:600; }
+  .cal-day.disabled { opacity:0.2; cursor:default; }
 
-  .form-group { margin-bottom:1rem; }
-  label { display:block; font-size:0.65rem; text-transform:uppercase; color: var(--text-muted); margin-bottom:0.3rem; }
-  input, select, textarea { width:100%; padding:0.6rem; border:1px solid rgba(122,92,42,0.2); background:rgba(255,255,255,0.4); outline:none; }
-  .btn-primary { width:100%; background:#1a1510; color:#e8dcc8; padding:1rem; border:none; text-transform:uppercase; letter-spacing:0.2em; cursor:pointer; transition: 0.3s; }
-  .btn-primary:hover { background: #000; }
+  .panel-title { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:400; letter-spacing:0.3em; text-transform:uppercase; color:#8a7560; margin-bottom:1.2rem; }
+  .form-group { margin-bottom:0.9rem; }
+  .form-group label { display:block; font-size:0.6rem; letter-spacing:0.1em; text-transform:uppercase; color:#8a7560; margin-bottom:0.35rem; font-weight:500; }
+  input, select, textarea { width:100%; background:rgba(255,255,255,0.5); border:1px solid rgba(122,92,42,0.2); border-radius:0; padding:0.5rem 0.7rem; font-family:'DM Sans',sans-serif; font-size:0.82rem; color:#2a1f0e; outline:none; }
+  .btn-primary { width:100%; background:#1a1510; color:rgba(235,220,195,0.9); border:1px solid rgba(235,220,195,0.35); padding:0.8rem; font-family:'DM Sans',sans-serif; font-size:0.68rem; font-weight:400; letter-spacing:0.25em; text-transform:uppercase; cursor:pointer; margin-top:0.4rem; }
+  
+  .footer-links { margin-top:1.5rem; display:flex; gap:1.2rem; justify-content:center; }
+  .footer-links a { font-size:0.55rem; color:rgba(255,255,255,0.4); text-decoration:none; text-transform:uppercase; letter-spacing:0.15em; cursor:pointer; }
 
-  /* Review Rotator */
-  .review-rotator { margin-top:2rem; padding:1rem; border:1px solid rgba(122,92,42,0.1); background:rgba(255,255,255,0.2); min-height:100px; }
-  .review-quote { font-style: italic; font-size: 0.8rem; margin-bottom: 0.5rem; }
-  .review-who { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); }
+  .modal-overlay { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:2000; align-items:center; justify-content:center; padding:1.5rem; }
+  .modal-box { background:#e8dcc8; width:100%; max-width:600px; padding:2rem; position:relative; max-height:85vh; overflow-y:auto; color:#2a1f0e; }
+  .modal-close { position:absolute; top:1rem; right:1rem; background:none; border:none; font-size:1.5rem; cursor:pointer; color:#8a7560; }
 </style>
 </head>
 <body>
@@ -103,86 +129,131 @@
   <div class="main-card">
     <div class="card-header">
       <div class="card-header-logo-box">
-        <img src="https://i.imgur.com/vDRf0fc.jpg" class="card-header-logo">
+        <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACtWK6eAAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAALEwAACxMBAJqcGAAAFvVJREFUeJzt3XmUVNWdx/HPq6ru6m66G7ppGGRpZFFBQUEUkS0mKhqNiUvcmByN6IkbY9zGqDlxidG4zRhzYmI0bnGJOca4x7gxatwgKi6gIAsiooAKyia70PRC0/u+1T8qGGRpum+96n6/n3P69HNV9atX9at737v3vS8RERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERERer5tve/726889d71c43770428.png" class="card-header-logo">
       </div>
       <div class="card-header-title">Tischreservierung</div>
     </div>
 
     <div class="calendar-panel">
       <div class="cal-header">
-        <div class="cal-month" id="month-label">Februar 2026</div>
-        <div style="display:flex; gap:10px;">
-            <button onclick="changeMonth(-1)" style="background:none; border:none; cursor:pointer;">←</button>
-            <button onclick="changeMonth(1)" style="background:none; border:none; cursor:pointer;">→</button>
+        <div class="cal-month" id="month-label"></div>
+        <div class="cal-nav">
+          <button onclick="changeMonth(-1)">←</button>
+          <button onclick="changeMonth(1)">→</button>
         </div>
       </div>
-      <div class="cal-grid" id="cal-grid"></div>
-      
-      <div class="review-rotator">
-        <div id="review-content">
-            <p class="review-quote">"Großartige Cocktails und eine Atmosphäre wie in einer anderen Welt."</p>
-            <p class="review-who">M. K. — WIEN</p>
-        </div>
+      <div class="cal-grid" id="calendar-days">
+        <div class="cal-day-label">Mo</div>
+        <div class="cal-day-label">Di</div>
+        <div class="cal-day-label">Mi</div>
+        <div class="cal-day-label">Do</div>
+        <div class="cal-day-label">Fr</div>
+        <div class="cal-day-label">Sa</div>
+        <div class="cal-day-label">So</div>
       </div>
     </div>
 
     <div class="form-panel">
-      <form id="res-form" onsubmit="event.preventDefault(); alert('In diesem Beispiel wird der Code nur visualisiert. Verbinde deine Supabase-Datenbank für volle Funktion.');">
+      <div class="panel-title">Deine Details</div>
+      <form id="reservation-form">
         <div class="form-group">
-          <label>Datum</label>
-          <input type="text" id="selected-date-display" readonly placeholder="Bitte im Kalender wählen">
+          <label>Datum & Zeit</label>
+          <input type="text" id="display-datetime" readonly placeholder="Wähle einen Termin im Kalender">
+        </div>
+        <div style="display:grid; grid-template-columns:1fr 1fr; gap:0.8rem;">
+          <div class="form-group">
+            <label>Vorname</label>
+            <input type="text" id="first-name" required>
+          </div>
+          <div class="form-group">
+            <label>Nachname</label>
+            <input type="text" id="last-name" required>
+          </div>
         </div>
         <div class="form-group">
-          <label>Vorname</label>
-          <input type="text" required>
+          <label>E-Mail</label>
+          <input type="email" id="email" required>
         </div>
         <div class="form-group">
-          <label>Nachname</label>
-          <input type="text" required>
-        </div>
-        <div class="form-group">
-          <label>Personen</label>
+          <label>Personenanzahl</label>
           <select id="guests">
-            <option>2 Personen</option>
-            <option>4 Personen</option>
-            <option>6 Personen</option>
-            <option>8+ Personen (Kreditkarte benötigt)</option>
+            <option value="2">2 Personen</option>
+            <option value="3">3 Personen</option>
+            <option value="4">4 Personen</option>
+            <option value="5">5 Personen</option>
+            <option value="6">6 Personen</option>
           </select>
         </div>
-        <button type="submit" class="btn-primary">Reservierung bestätigen</button>
+        <button type="submit" class="btn-primary" id="submit-btn">Reservierung bestätigen</button>
       </form>
+
+      <div class="footer-links">
+        <a onclick="document.getElementById('modal-privacy').style.display='flex'">Datenschutz</a>
+        <a onclick="document.getElementById('modal-agb').style.display='flex'">AGB</a>
+      </div>
     </div>
   </div>
 </main>
 
-<script>
-  // Einfache Kalender-Logik zur Visualisierung
-  let currentMonth = new Date();
-  const grid = document.getElementById('cal-grid');
-  const label = document.getElementById('month-label');
+<div class="modal-overlay" id="modal-privacy" onclick="if(event.target===this)this.style.display='none'">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal-privacy').style.display='none'">×</button>
+    <h2>Datenschutzerklärung</h2>
+    <p>Wir nehmen den Schutz Ihrer Daten ernst. Alle Informationen werden nur zur Abwicklung der Reservierung genutzt.</p>
+  </div>
+</div>
 
-  function render() {
-    grid.innerHTML = '';
-    label.innerText = currentMonth.toLocaleString('de-DE', { month: 'long', year: 'numeric' });
-    for (let i = 1; i <= 31; i++) {
-      const day = document.createElement('div');
-      day.className = 'cal-day';
-      day.innerText = i;
-      day.onclick = () => {
-        document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('selected'));
-        day.classList.add('selected');
-        document.getElementById('selected-date-display').value = i + '. ' + label.innerText;
+<div class="modal-overlay" id="modal-agb" onclick="if(event.target===this)this.style.display='none'">
+  <div class="modal-box">
+    <button class="modal-close" onclick="document.getElementById('modal-agb').style.display='none'">×</button>
+    <h2>Allgemeine Geschäftsbedingungen</h2>
+    <p>Reservierungen sind verbindlich. Stornierungen bitte 12h im Voraus.</p>
+  </div>
+</div>
+
+<script>
+  // HIER KOMMT DEINE KALENDER-LOGIK WIEDER REIN
+  let selectedDate = null;
+  let currentViewDate = new Date();
+
+  function renderCalendar() {
+    const grid = document.getElementById('calendar-days');
+    // Header labels behalten
+    const labels = '<div class="cal-day-label">Mo</div><div class="cal-day-label">Di</div><div class="cal-day-label">Mi</div><div class="cal-day-label">Do</div><div class="cal-day-label">Fr</div><div class="cal-day-label">Sa</div><div class="cal-day-label">So</div>';
+    grid.innerHTML = labels;
+
+    const monthName = currentViewDate.toLocaleString('de-DE', { month: 'long', year: 'numeric' });
+    document.getElementById('month-label').innerText = monthName;
+
+    const firstDay = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth(), 1).getDay();
+    const daysInMonth = new Date(currentViewDate.getFullYear(), currentViewDate.getMonth() + 1, 0).getDate();
+    
+    // Offset für Montag als Wochenstart
+    let offset = firstDay === 0 ? 6 : firstDay - 1;
+
+    for(let i=0; i<offset; i++) grid.innerHTML += '<div></div>';
+
+    for(let d=1; d<=daysInMonth; d++) {
+      const dayEl = document.createElement('div');
+      dayEl.className = 'cal-day';
+      dayEl.innerText = d;
+      const fullDate = `${d}. ${monthName}`;
+      
+      dayEl.onclick = () => {
+        document.querySelectorAll('.cal-day').forEach(el => el.classList.remove('selected'));
+        dayEl.classList.add('selected');
+        document.getElementById('display-datetime').value = fullDate + " — 19:00 Uhr";
       };
-      grid.appendChild(day);
+      grid.appendChild(dayEl);
     }
   }
 
-  function changeMonth(dir) {
-    currentMonth.setMonth(currentMonth.getMonth() + dir);
-    render();
+  function changeMonth(step) {
+    currentViewDate.setMonth(currentViewDate.getMonth() + step);
+    renderCalendar();
   }
 
-  render();
+  renderCalendar();
 </script>
 
 </body>
