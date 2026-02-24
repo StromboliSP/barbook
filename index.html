@@ -17,29 +17,23 @@
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
-    --accent: rgba(255,255,255,0.8);
-    --accent-dim: rgba(255,255,255,0.06);
-    --text: #ffffff;
-    --text-muted: rgba(255,255,255,0.4);
-    --border: rgba(255,255,255,0.18);
-    --surface: rgba(255,255,255,0.05);
-    --surface2: rgba(255,255,255,0.03);
-    --success: #55aa77;
-    --danger: rgba(220,100,100,0.9);
+    --accent: #7a5c2a;
+    --text: #2a1f0e;
+    --text-muted: #8a7560;
+    --bg-card: #e8dcc8;
+    --bg-form: #ede3d2;
   }
   body {
     font-family: 'DM Sans', sans-serif;
     background: url('https://i.imgur.com/vDRf0fc.jpg') center center / cover fixed no-repeat;
-    color: var(--text); min-height: 100vh; display: flex; flex-direction: column;
-    align-items: center;
-    font-size: clamp(13px, 1.1vw, 17px);
+    color: var(--text); min-height: 100vh; display: flex; flex-direction: column; align-items: center;
   }
-  main { display:flex; align-items:flex-start; justify-content:center; padding:0 1rem 3rem; width:100%; }
+  main { display:flex; align-items:flex-start; justify-content:center; padding:0 1rem 3rem; width:100%; margin-top: 2rem; }
   
-  /* --- ANGEPASSTER HEADER --- */
+  /* --- HEADER UPDATE --- */
   .card-header {
     background:#2e2a24;
-    padding:0.7rem 1.8rem; /* Schmaler Balken */
+    padding:0.7rem 1.8rem;
     display:flex;
     align-items:center;
     gap:1.2rem;
@@ -47,76 +41,64 @@
     position: relative;
     z-index: 10;
   }
-  
-  /* --- LOGO BOX MIT ÜBERLAPPUNG --- */
   .card-header-logo-box {
-    width:115px; /* Größer */
+    width:115px;
     height:115px;
     background:#1a1510;
     border:1px solid rgba(180,145,80,0.35);
-    box-shadow:0 8px 20px rgba(0,0,0,0.4), inset 0 0 8px rgba(0,0,0,0.4);
+    box-shadow:0 8px 20px rgba(0,0,0,0.4);
     border-radius:4px;
     display:flex; align-items:center; justify-content:center;
     overflow:hidden; flex-shrink:0;
     position: relative;
-    top: 35px; /* Schiebt es über den Rand */
-    margin-bottom: -25px; /* Verhindert Leerraum */
+    top: 35px; 
+    margin-bottom: -25px;
     z-index: 11;
   }
-  
-  .card-header-logo { 
-    width:115%; /* Zoom-Effekt */
-    height:115%; 
-    object-fit:cover; 
-    display:block; 
-  }
+  .card-header-logo { width:115%; height:115%; object-fit:cover; display:block; }
+  .card-header-title { font-size:0.75rem; color:rgba(235,215,175,0.9); letter-spacing:0.3em; text-transform:uppercase; }
 
-  .card-header-title {
-    font-family:'DM Sans',sans-serif;
-    font-size:0.75rem;
-    font-weight:400;
-    color:rgba(235,215,175,0.9);
-    letter-spacing:0.3em;
-    text-transform:uppercase;
-  }
+  /* --- MAIN CARD --- */
   .main-card {
     display:grid; grid-template-columns:1fr;
     width:100%; max-width:480px;
-    background:#e8dcc8;
-    box-shadow:0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(122,92,42,0.2);
-    overflow:visible; /* Geändert von hidden auf visible für das Logo */
+    background: var(--bg-card);
+    box-shadow:0 20px 60px rgba(0,0,0,0.5);
+    overflow: visible; /* Wichtig für das überlappende Logo */
   }
-  .calendar-panel { padding:2.5rem 1.8rem 1.6rem; border-bottom:1px solid rgba(122,92,42,0.15); background:#e8dcc8; }
-  .form-panel { padding:1.6rem 1.8rem; background:#ede3d2; }
+  .calendar-panel { padding: 3.5rem 1.8rem 1.6rem; border-bottom:1px solid rgba(122,92,42,0.15); }
+  .form-panel { padding:1.6rem 1.8rem; background: var(--bg-form); }
 
-  /* ── DESKTOP ANPASSUNGEN ── */
   @media (min-width:900px) {
-    body { font-size: clamp(13px, 1.1vw, 18px); }
-    main { padding: clamp(1.5rem, 4vh, 4rem) clamp(1rem, 3vw, 3rem); align-items: center; min-height: 100vh; }
-    .main-card { grid-template-columns: 1fr 1fr; grid-template-rows: auto 1fr; max-width: clamp(700px, 68vw, 1000px); width: 100%; }
+    .main-card { grid-template-columns: 1fr 1fr; max-width: 900px; }
     .card-header { grid-column: 1 / -1; }
     .card-header-logo-box { width: 140px; height: 140px; top: 45px; }
-    .calendar-panel { border-bottom: none; border-right: 1px solid rgba(122,92,42,0.15); padding-top: 4rem; }
+    .calendar-panel { border-bottom: none; border-right: 1px solid rgba(122,92,42,0.15); padding-top: 5rem; }
   }
 
-  /* Restliches Design bleibt gleich... */
-  .cal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:0.8rem; }
-  .cal-month { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:400; letter-spacing:0.3em; text-transform:uppercase; color:#8a7560; }
-  .cal-nav { display:flex; gap:0.3rem; }
-  .cal-nav button { background:transparent; border:1px solid rgba(122,92,42,0.25); color:#8a7560; width:26px; height:26px; border-radius:0; cursor:pointer; font-size:0.75rem; display:flex; align-items:center; justify-content:center; }
-  .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; }
-  .cal-day-label { text-align:center; font-size:0.6rem; font-weight:400; letter-spacing:0.07em; text-transform:uppercase; color:#8a7560; padding-bottom:0.4rem; }
-  .cal-day { aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; font-size:0.82rem; color:#2a1f0e; border:1px solid transparent; position:relative; }
-  .cal-day.selected { background:rgba(122,92,42,0.15); border-color:#7a5c2a; }
-  .cal-day.today { color:#7a5c2a; font-weight:700; }
-  .panel-title { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:400; letter-spacing:0.3em; text-transform:uppercase; color:#8a7560; }
-  .date-trigger { background:rgba(122,92,42,0.08); border:1px solid rgba(122,92,42,0.2); padding:0.5rem 0.7rem; margin-bottom:0.9rem; font-size:0.82rem; display:flex; align-items:center; gap:0.5rem; cursor:pointer; }
-  .form-group { margin-bottom:0.9rem; }
-  input, select, textarea { width:100%; background:rgba(255,255,255,0.5); border:1px solid rgba(122,92,42,0.2); padding:0.5rem 0.7rem; font-family:'DM Sans',sans-serif; font-size:0.82rem; outline:none; }
-  .btn-primary { width:100%; background:#1a1510; color:rgba(235,220,195,0.9); border:1px solid rgba(235,220,195,0.35); padding:0.8rem; font-size:0.68rem; letter-spacing:0.25em; text-transform:uppercase; cursor:pointer; }
+  /* Kalender & Form Styles */
+  .cal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:1rem; }
+  .cal-month { font-size:0.65rem; letter-spacing:0.2em; text-transform:uppercase; color: var(--text-muted); }
+  .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+  .cal-day { aspect-ratio:1; display:flex; align-items:center; justify-content:center; cursor:pointer; font-size:0.85rem; position:relative; }
+  .cal-day.selected { background: rgba(122,92,42,0.2); font-weight: bold; border: 1px solid var(--accent); }
+  .cal-day.today { color: var(--accent); font-weight: bold; }
+  .cal-day.past { opacity: 0.3; cursor: default; }
+
+  .form-group { margin-bottom:1rem; }
+  label { display:block; font-size:0.65rem; text-transform:uppercase; color: var(--text-muted); margin-bottom:0.3rem; }
+  input, select, textarea { width:100%; padding:0.6rem; border:1px solid rgba(122,92,42,0.2); background:rgba(255,255,255,0.4); outline:none; }
+  .btn-primary { width:100%; background:#1a1510; color:#e8dcc8; padding:1rem; border:none; text-transform:uppercase; letter-spacing:0.2em; cursor:pointer; transition: 0.3s; }
+  .btn-primary:hover { background: #000; }
+
+  /* Review Rotator */
+  .review-rotator { margin-top:2rem; padding:1rem; border:1px solid rgba(122,92,42,0.1); background:rgba(255,255,255,0.2); min-height:100px; }
+  .review-quote { font-style: italic; font-size: 0.8rem; margin-bottom: 0.5rem; }
+  .review-who { font-size: 0.6rem; text-transform: uppercase; color: var(--text-muted); }
 </style>
 </head>
 <body>
+
 <main>
   <div class="main-card">
     <div class="card-header">
@@ -125,16 +107,31 @@
       </div>
       <div class="card-header-title">Tischreservierung</div>
     </div>
+
     <div class="calendar-panel">
       <div class="cal-header">
-        <div class="cal-month">Februar 2026</div>
-      </div>
-      <div class="cal-grid">
+        <div class="cal-month" id="month-label">Februar 2026</div>
+        <div style="display:flex; gap:10px;">
+            <button onclick="changeMonth(-1)" style="background:none; border:none; cursor:pointer;">←</button>
+            <button onclick="changeMonth(1)" style="background:none; border:none; cursor:pointer;">→</button>
         </div>
+      </div>
+      <div class="cal-grid" id="cal-grid"></div>
+      
+      <div class="review-rotator">
+        <div id="review-content">
+            <p class="review-quote">"Großartige Cocktails und eine Atmosphäre wie in einer anderen Welt."</p>
+            <p class="review-who">M. K. — WIEN</p>
+        </div>
+      </div>
     </div>
+
     <div class="form-panel">
-      <div class="panel-title">Neue Reservierung</div>
-      <form id="res-form">
+      <form id="res-form" onsubmit="event.preventDefault(); alert('In diesem Beispiel wird der Code nur visualisiert. Verbinde deine Supabase-Datenbank für volle Funktion.');">
+        <div class="form-group">
+          <label>Datum</label>
+          <input type="text" id="selected-date-display" readonly placeholder="Bitte im Kalender wählen">
+        </div>
         <div class="form-group">
           <label>Vorname</label>
           <input type="text" required>
@@ -143,10 +140,50 @@
           <label>Nachname</label>
           <input type="text" required>
         </div>
+        <div class="form-group">
+          <label>Personen</label>
+          <select id="guests">
+            <option>2 Personen</option>
+            <option>4 Personen</option>
+            <option>6 Personen</option>
+            <option>8+ Personen (Kreditkarte benötigt)</option>
+          </select>
+        </div>
         <button type="submit" class="btn-primary">Reservierung bestätigen</button>
       </form>
     </div>
   </div>
 </main>
+
+<script>
+  // Einfache Kalender-Logik zur Visualisierung
+  let currentMonth = new Date();
+  const grid = document.getElementById('cal-grid');
+  const label = document.getElementById('month-label');
+
+  function render() {
+    grid.innerHTML = '';
+    label.innerText = currentMonth.toLocaleString('de-DE', { month: 'long', year: 'numeric' });
+    for (let i = 1; i <= 31; i++) {
+      const day = document.createElement('div');
+      day.className = 'cal-day';
+      day.innerText = i;
+      day.onclick = () => {
+        document.querySelectorAll('.cal-day').forEach(d => d.classList.remove('selected'));
+        day.classList.add('selected');
+        document.getElementById('selected-date-display').value = i + '. ' + label.innerText;
+      };
+      grid.appendChild(day);
+    }
+  }
+
+  function changeMonth(dir) {
+    currentMonth.setMonth(currentMonth.getMonth() + dir);
+    render();
+  }
+
+  render();
+</script>
+
 </body>
 </html>
