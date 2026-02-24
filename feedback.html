@@ -1,0 +1,545 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bewertung · The Birdyard</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f0b06;
+      --surface: #1a1209;
+      --surface2: #211608;
+      --border: #3a2e1e;
+      --accent: #b8912a;
+      --accent-dim: rgba(184,145,42,0.12);
+      --text: #c8b99a;
+      --text-muted: #7a6a50;
+      --success: #4caf7d;
+    }
+
+    html, body {
+      min-height: 100vh;
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+    }
+
+    body {
+      background-image: radial-gradient(ellipse at 20% 20%, rgba(184,145,42,0.04) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 80%, rgba(184,145,42,0.03) 0%, transparent 60%);
+    }
+
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 40px 20px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 520px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      background: linear-gradient(135deg, var(--surface), #2a1e0e);
+      padding: 32px 36px 28px;
+      text-align: center;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .logo {
+      font-family: 'Playfair Display', serif;
+      font-size: 22px;
+      letter-spacing: 0.18em;
+      color: var(--accent);
+      font-weight: 400;
+      text-transform: uppercase;
+    }
+
+    .logo-sub {
+      font-size: 10px;
+      letter-spacing: 0.25em;
+      color: var(--text-muted);
+      margin-top: 4px;
+      text-transform: uppercase;
+    }
+
+    .card-header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      font-weight: 400;
+      color: var(--text);
+      margin-top: 20px;
+      line-height: 1.4;
+    }
+
+    .card-header p {
+      color: var(--text-muted);
+      font-size: 13px;
+      margin-top: 8px;
+      line-height: 1.6;
+    }
+
+    .card-body {
+      padding: 28px 36px 36px;
+    }
+
+    .section {
+      margin-bottom: 28px;
+    }
+
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 12px;
+    }
+
+    /* Star rating */
+    .stars {
+      display: flex;
+      gap: 6px;
+    }
+
+    .star {
+      font-size: 32px;
+      cursor: pointer;
+      color: var(--border);
+      transition: color 0.12s, transform 0.1s;
+      line-height: 1;
+      user-select: none;
+    }
+
+    .star.active { color: var(--accent); }
+    .star:hover { transform: scale(1.1); }
+
+    .stars-sm .star { font-size: 24px; }
+
+    /* Category grid */
+    .category-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 12px;
+    }
+
+    .category-block {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 12px;
+      text-align: center;
+    }
+
+    .category-block .cat-label {
+      font-size: 11px;
+      color: var(--text-muted);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .category-block .stars { justify-content: center; }
+
+    /* Textarea */
+    textarea {
+      width: 100%;
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 14px;
+      line-height: 1.6;
+      resize: vertical;
+      min-height: 100px;
+      outline: none;
+      transition: border-color 0.15s;
+    }
+
+    textarea:focus { border-color: var(--accent); }
+    textarea::placeholder { color: var(--text-muted); }
+
+    /* Submit button */
+    .btn-submit {
+      width: 100%;
+      padding: 16px;
+      background: linear-gradient(135deg, var(--accent), #d4a83a);
+      border: none;
+      border-radius: 10px;
+      color: #1a1209;
+      font-family: 'DM Sans', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      cursor: pointer;
+      transition: opacity 0.15s, transform 0.1s;
+      margin-top: 8px;
+    }
+
+    .btn-submit:hover { opacity: 0.9; transform: translateY(-1px); }
+    .btn-submit:active { transform: translateY(0); }
+    .btn-submit:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
+
+    /* States */
+    .state { display: none; }
+    .state.active { display: block; }
+
+    .success-icon {
+      font-size: 56px;
+      margin-bottom: 16px;
+      animation: pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    @keyframes pop {
+      from { transform: scale(0.5); opacity: 0; }
+      to { transform: scale(1); opacity: 1; }
+    }
+
+    .success-card {
+      text-align: center;
+      padding: 48px 36px;
+    }
+
+    .success-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 24px;
+      font-weight: 400;
+      color: var(--accent);
+      margin-bottom: 12px;
+    }
+
+    .success-card p {
+      color: var(--text-muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    .error-card {
+      text-align: center;
+      padding: 48px 36px;
+    }
+
+    .error-card h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 20px;
+      color: var(--text);
+      margin-bottom: 12px;
+    }
+
+    .error-card p { color: var(--text-muted); font-size: 14px; line-height: 1.7; }
+
+    .rating-hint {
+      font-size: 12px;
+      color: var(--accent);
+      margin-top: 6px;
+      min-height: 18px;
+      transition: opacity 0.2s;
+    }
+
+    .divider {
+      border: none;
+      border-top: 1px solid var(--border);
+      margin: 24px 0;
+    }
+
+    @media (max-width: 480px) {
+      .card-body { padding: 24px 20px 28px; }
+      .card-header { padding: 28px 24px; }
+      .category-grid { grid-template-columns: 1fr; gap: 8px; }
+      .category-block { padding: 12px; display: flex; align-items: center; gap: 12px; text-align: left; }
+      .category-block .cat-label { margin-bottom: 0; min-width: 80px; }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <div class="card">
+
+    <!-- Loading state -->
+    <div id="state-loading" class="state active">
+      <div style="padding:60px;text-align:center;">
+        <div style="font-size:24px;animation:spin 1s linear infinite;display:inline-block;">⏳</div>
+        <p style="color:var(--text-muted);margin-top:12px;font-size:13px;">Einen Moment…</p>
+      </div>
+    </div>
+
+    <!-- Error state (invalid/used token) -->
+    <div id="state-error" class="state">
+      <div class="card-header">
+        <div class="logo">The Birdyard</div>
+        <div class="logo-sub">Lange Gasse · Wien</div>
+      </div>
+      <div class="error-card">
+        <div style="font-size:48px;margin-bottom:16px;">🔒</div>
+        <h2>Link nicht gültig</h2>
+        <p id="error-msg">Dieser Bewertungslink ist ungültig oder wurde bereits verwendet.</p>
+      </div>
+    </div>
+
+    <!-- Form state -->
+    <div id="state-form" class="state">
+      <div class="card-header">
+        <div class="logo">The Birdyard</div>
+        <div class="logo-sub">Lange Gasse · Wien</div>
+        <h1>Wie war dein Abend?</h1>
+        <p id="visit-info">Danke für deinen Besuch — dein Feedback bedeutet uns viel.</p>
+      </div>
+      <div class="card-body">
+
+        <!-- Overall rating -->
+        <div class="section">
+          <div class="section-label">Gesamteindruck</div>
+          <div class="stars" id="stars-overall">
+            <span class="star" data-val="1">★</span>
+            <span class="star" data-val="2">★</span>
+            <span class="star" data-val="3">★</span>
+            <span class="star" data-val="4">★</span>
+            <span class="star" data-val="5">★</span>
+          </div>
+          <div class="rating-hint" id="hint-overall"></div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Category ratings -->
+        <div class="section">
+          <div class="section-label">Details</div>
+          <div class="category-grid">
+            <div class="category-block">
+              <div class="cat-label">🍽️ Essen</div>
+              <div class="stars stars-sm" id="stars-food">
+                <span class="star" data-val="1">★</span>
+                <span class="star" data-val="2">★</span>
+                <span class="star" data-val="3">★</span>
+                <span class="star" data-val="4">★</span>
+                <span class="star" data-val="5">★</span>
+              </div>
+            </div>
+            <div class="category-block">
+              <div class="cat-label">🤝 Service</div>
+              <div class="stars stars-sm" id="stars-service">
+                <span class="star" data-val="1">★</span>
+                <span class="star" data-val="2">★</span>
+                <span class="star" data-val="3">★</span>
+                <span class="star" data-val="4">★</span>
+                <span class="star" data-val="5">★</span>
+              </div>
+            </div>
+            <div class="category-block">
+              <div class="cat-label">✨ Atmosphäre</div>
+              <div class="stars stars-sm" id="stars-atmosphere">
+                <span class="star" data-val="1">★</span>
+                <span class="star" data-val="2">★</span>
+                <span class="star" data-val="3">★</span>
+                <span class="star" data-val="4">★</span>
+                <span class="star" data-val="5">★</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <hr class="divider">
+
+        <!-- Comment -->
+        <div class="section" style="margin-bottom:20px;">
+          <div class="section-label">Kommentar <span style="font-size:10px;font-weight:400;letter-spacing:0;text-transform:none;">(optional)</span></div>
+          <textarea id="comment" placeholder="Was hat dir gefallen? Was könnten wir besser machen?"></textarea>
+        </div>
+
+        <div id="submit-error" style="color:#ef5350;font-size:13px;margin-bottom:12px;display:none;">Bitte vergib zumindest einen Gesamteindruck.</div>
+
+        <button class="btn-submit" id="btn-submit" onclick="submitFeedback()">
+          Bewertung absenden ✓
+        </button>
+
+        <p style="text-align:center;font-size:11px;color:var(--text-muted);margin-top:14px;line-height:1.6;">
+          Dein Feedback ist anonym und wird nur intern verwendet.
+        </p>
+      </div>
+    </div>
+
+    <!-- Success state -->
+    <div id="state-success" class="state">
+      <div class="success-card">
+        <div class="success-icon">🐦</div>
+        <h2>Vielen Dank!</h2>
+        <p>Dein Feedback hilft uns, das Birdyard für jeden Gast<br>ein bisschen besser zu machen.</p>
+        <p style="margin-top:12px;font-size:12px;color:var(--text-muted);">Wir freuen uns, dich bald wiederzusehen.</p>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<style>
+@keyframes spin { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
+</style>
+
+<script>
+const SUPABASE_URL = 'https://syqhivfmqtqfnaxogrfp.supabase.co';
+const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN5cWhpdmZtcXRxZm5heG9ncmZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NDI1NzMsImV4cCI6MjA4NzAxODU3M30.Ctx5aBFcozWImqDgZul-o7MKCdNV6GAXpLNPO0AHo4c';
+
+const ratings = { overall: 0, food: 0, service: 0, atmosphere: 0 };
+const HINTS = ['', 'Nicht so gut', 'Es geht', 'Gut', 'Sehr gut', 'Ausgezeichnet'];
+let feedbackToken = null;
+let reservationData = null;
+
+function showState(id) {
+  ['loading','error','form','success'].forEach(s => {
+    document.getElementById('state-'+s).classList.toggle('active', s === id);
+  });
+}
+
+// Setup star rating group
+function initStars(groupId, key) {
+  const container = document.getElementById(groupId);
+  const stars = container.querySelectorAll('.star');
+  stars.forEach(star => {
+    star.addEventListener('mouseenter', () => highlightStars(stars, +star.dataset.val));
+    star.addEventListener('mouseleave', () => highlightStars(stars, ratings[key]));
+    star.addEventListener('click', () => {
+      ratings[key] = +star.dataset.val;
+      highlightStars(stars, ratings[key]);
+      if(key === 'overall') {
+        const hint = document.getElementById('hint-overall');
+        hint.textContent = HINTS[ratings[key]] || '';
+      }
+    });
+  });
+}
+
+function highlightStars(stars, val) {
+  stars.forEach(s => s.classList.toggle('active', +s.dataset.val <= val));
+}
+
+// Load token from URL and validate
+async function init() {
+  initStars('stars-overall', 'overall');
+  initStars('stars-food', 'food');
+  initStars('stars-service', 'service');
+  initStars('stars-atmosphere', 'atmosphere');
+
+  const params = new URLSearchParams(window.location.search);
+  feedbackToken = params.get('token');
+
+  if (!feedbackToken) {
+    document.getElementById('error-msg').textContent = 'Kein gültiger Bewertungslink. Bitte nutze den Link aus deiner E-Mail.';
+    showState('error');
+    return;
+  }
+
+  try {
+    // Fetch feedback row by token
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/feedback?token=eq.${feedbackToken}&select=*`,
+      { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY } }
+    );
+    const rows = await res.json();
+
+    if (!rows || !rows.length) {
+      document.getElementById('error-msg').textContent = 'Dieser Link ist ungültig oder abgelaufen.';
+      showState('error');
+      return;
+    }
+
+    const fb = rows[0];
+
+    if (fb.submitted_at) {
+      document.getElementById('error-msg').textContent = 'Du hast diese Reservierung bereits bewertet. Danke für dein Feedback!';
+      showState('error');
+      return;
+    }
+
+    // Fetch reservation details for context
+    if (fb.reservation_id) {
+      const rRes = await fetch(
+        `${SUPABASE_URL}/rest/v1/reservations?id=eq.${fb.reservation_id}&select=first_name,last_name,date,guests`,
+        { headers: { 'apikey': SUPABASE_ANON_KEY, 'Authorization': 'Bearer ' + SUPABASE_ANON_KEY } }
+      );
+      const rRows = await rRes.json();
+      if (rRows && rRows[0]) {
+        reservationData = rRows[0];
+        const d = reservationData;
+        const dateStr = formatDisplay(d.date);
+        document.getElementById('visit-info').textContent =
+          `Hallo ${d.first_name}! Wie war dein Besuch am ${dateStr}?`;
+      }
+    }
+
+    showState('form');
+  } catch (e) {
+    document.getElementById('error-msg').textContent = 'Verbindungsfehler. Bitte versuche es später erneut.';
+    showState('error');
+  }
+}
+
+async function submitFeedback() {
+  if (!ratings.overall) {
+    document.getElementById('submit-error').style.display = 'block';
+    return;
+  }
+  document.getElementById('submit-error').style.display = 'none';
+
+  const btn = document.getElementById('btn-submit');
+  btn.disabled = true;
+  btn.textContent = 'Wird gesendet…';
+
+  const comment = document.getElementById('comment').value.trim();
+
+  try {
+    const res = await fetch(
+      `${SUPABASE_URL}/rest/v1/feedback?token=eq.${feedbackToken}`,
+      {
+        method: 'PATCH',
+        headers: {
+          'apikey': SUPABASE_ANON_KEY,
+          'Authorization': 'Bearer ' + SUPABASE_ANON_KEY,
+          'Content-Type': 'application/json',
+          'Prefer': 'return=minimal',
+        },
+        body: JSON.stringify({
+          overall_rating: ratings.overall,
+          food_rating: ratings.food || null,
+          service_rating: ratings.service || null,
+          atmosphere_rating: ratings.atmosphere || null,
+          comment: comment || null,
+          submitted_at: new Date().toISOString(),
+        }),
+      }
+    );
+
+    if (res.ok) {
+      showState('success');
+    } else {
+      throw new Error('PATCH failed');
+    }
+  } catch (e) {
+    btn.disabled = false;
+    btn.textContent = 'Bewertung absenden ✓';
+    document.getElementById('submit-error').textContent = 'Fehler beim Speichern. Bitte versuche es erneut.';
+    document.getElementById('submit-error').style.display = 'block';
+  }
+}
+
+function formatDisplay(s) {
+  const d = new Date(s + 'T00:00:00');
+  return String(d.getDate()).padStart(2,'0') + '.' + String(d.getMonth()+1).padStart(2,'0') + '.' + d.getFullYear();
+}
+
+init();
+</script>
+</body>
+</html>
