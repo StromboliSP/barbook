@@ -47,18 +47,16 @@
   }
   main { display:flex; align-items:flex-start; justify-content:center; padding:0 1rem 3rem; width:100%; }
   
-  /* -- Der braune Balken oben -- */
   .card-header {
     background: #2e2a24;
     height: 75px; 
     position: relative;
     border-bottom: 1px solid rgba(0,0,0,0.25);
     display: flex;
-    justify-content: flex-end; /* Ordnet das barbook-Logo rechts an */
+    justify-content: flex-end;
     align-items: center;
   }
 
-  /* -- Das The Birdyard Logo (links und überlappend) -- */
   .card-header-logo-box {
     position: absolute;
     top: 25px; 
@@ -74,7 +72,6 @@
   }
   .card-header-logo { width:82px; height:82px; object-fit:contain; display:block; }
   
-  /* -- Das barbook Logo (rechts) -- */
   .card-header-barbook {
     padding-right: 1.8rem;
     height: 100%;
@@ -82,7 +79,7 @@
     align-items: center;
   }
   .card-header-barbook svg {
-    height: 55px; /* Skaliert für Mobile */
+    height: 55px;
     width: auto;
     display: block;
   }
@@ -105,7 +102,6 @@
     background: #ede3d2; 
   }
 
-  /* ── DESKTOP: two-column side-by-side layout ── */
   @media (min-width:900px) {
     body { font-size: clamp(13px, 1.1vw, 18px); }
     main {
@@ -132,9 +128,6 @@
       width: clamp(72px, 6.5vw, 98px);
       height: clamp(72px, 6.5vw, 98px);
     }
-    .card-header-barbook {
-      padding-right: clamp(1.4rem, 2vw, 2.2rem);
-    }
     .card-header-barbook svg {
       height: 65px; 
     }
@@ -148,34 +141,8 @@
       padding: 4.5rem clamp(1.2rem, 1.8vw, 2.2rem) clamp(1.2rem, 1.8vw, 2.2rem);
       background: #ede3d2;
     }
-    .cal-grid {
-      gap: clamp(2px, 0.35vw, 5px);
-    }
-    .cal-day {
-      font-size: clamp(0.7rem, 0.72vw, 0.9rem);
-      padding: clamp(0.3rem, 0.5vw, 0.6rem) 0;
-    }
-    .cal-month { font-size: clamp(0.58rem, 0.6vw, 0.72rem); }
-    .form-group label { font-size: clamp(0.6rem, 0.62vw, 0.72rem); }
-    .form-group input, .form-group select, .form-group textarea {
-      font-size: clamp(0.82rem, 0.85vw, 1rem);
-      padding: clamp(0.55rem, 0.7vw, 0.85rem) clamp(0.7rem, 0.9vw, 1.1rem);
-    }
-    .btn-primary {
-      font-size: clamp(0.65rem, 0.68vw, 0.8rem);
-      padding: clamp(0.75rem, 1vw, 1.1rem);
-    }
-  }
-  @media (min-width:1400px) {
-    body { font-size: clamp(15px, 1.05vw, 19px); }
-    .main-card { max-width: clamp(860px, 60vw, 1100px); }
-  }
-  @media (min-width:1800px) {
-    body { font-size: clamp(16px, 1.0vw, 20px); }
-    .main-card { max-width: clamp(920px, 55vw, 1200px); }
   }
 
-  /* Calendar Wrapper */
   .cal-wrapper {
     background: rgba(255,255,255,0.5);
     border: 1px solid rgba(122,92,42,0.2);
@@ -183,7 +150,6 @@
     margin-bottom: 1.4rem;
   }
   
-  /* Calendar */
   .cal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:0.8rem; }
   .cal-month { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:400; letter-spacing:0.3em; text-transform:uppercase; color:#8a7560; }
   .cal-nav { display:flex; gap:0.3rem; }
@@ -191,131 +157,80 @@
     background:transparent; border:1px solid rgba(122,92,42,0.25);
     color:#8a7560; width:26px; height:26px; border-radius:0;
     cursor:pointer; font-size:0.75rem; display:flex; align-items:center; justify-content:center;
-    transition:all 0.15s; touch-action:manipulation;
+    transition:all 0.15s;
   }
-  .cal-nav button:hover { border-color:#7a5c2a; color:#2a1f0e; background: rgba(255,255,255,0.7); }
   .cal-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:3px; }
   .cal-day-label { text-align:center; font-size:0.6rem; font-weight:400; letter-spacing:0.07em; text-transform:uppercase; color:#8a7560; padding-bottom:0.4rem; }
   .cal-day {
     aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center;
     border-radius:0; cursor:pointer; position:relative; font-size:0.82rem; transition:all 0.12s;
     border:1px solid transparent; color:#2a1f0e;
-    -webkit-tap-highlight-color:transparent; touch-action:manipulation; user-select:none; -webkit-user-select:none;
   }
-  .cal-day:hover:not(.empty):not(.past):not(.closed) { background:rgba(122,92,42,0.08); border-color:rgba(122,92,42,0.2); }
-  .cal-day.selected { background:rgba(122,92,42,0.15); border-color:#7a5c2a; color:#2a1f0e; font-weight:600; }
+  .cal-day.selected { background:rgba(122,92,42,0.15); border-color:#7a5c2a; font-weight:600; }
   .cal-day.today { color:#7a5c2a; font-weight:700; }
   .cal-day.today::after { content:''; width:3px; height:3px; border-radius:50%; background:#7a5c2a; position:absolute; bottom:2px; }
-  .cal-day.past { color:#8a7560; cursor:default; opacity:0.45; }
-  .cal-day.closed { color:#8a7560; cursor:not-allowed; opacity:0.3; text-decoration:line-through; }
-  .cal-day.empty { cursor:default; }
-  .occ-dot { width:5px; height:5px; border-radius:50%; position:absolute; left:2px; top:50%; transform:translateY(-50%); }
-  .occ-green { background:#4caf50; }
-  .occ-yellow { background:#f5a623; }
-  .occ-red { background:#e53935; }
+  .cal-day.past { color:#8a7560; opacity:0.45; }
+  .cal-day.closed { color:#8a7560; opacity:0.3; text-decoration:line-through; }
+
+  /* Dropdown Calendar - Heller, Kompakter, Bessere Schrift */
+  .date-dropdown {
+    position:absolute; top:calc(100% + 4px); left:0; right:0;
+    background:#ffffff; border:1px solid rgba(122,92,42,0.2);
+    border-radius:0; z-index:50; box-shadow:0 8px 30px rgba(0,0,0,0.15);
+    padding:0.6rem; display:none;
+  }
+  .date-dropdown.open { display:block; }
+  .dd-cal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:0.4rem; }
+  .dd-cal-month { font-family:'DM Sans',sans-serif; font-size:0.75rem; font-weight:600; color:#2a1f0e; letter-spacing:0.02em; }
+  .dd-nav button {
+    background:transparent; border:1px solid rgba(122,92,42,0.15); color:#8a7560;
+    width:24px; height:24px; cursor:pointer; font-size:0.8rem;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .dd-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:1px; }
+  .dd-label { text-align:center; font-size:0.55rem; font-weight:600; text-transform:uppercase; color:#8a7560; padding-bottom:0.3rem; }
+  .dd-day { 
+    aspect-ratio:1; display:flex; align-items:center; justify-content:center; 
+    font-size:0.85rem; font-weight:500; color:#2a1f0e; cursor:pointer;
+  }
+  .dd-day:hover:not(.dd-empty):not(.dd-past):not(.dd-closed) { background:#f8f4ed; }
+  .dd-day.dd-selected { background:#7a5c2a; color:#fff; font-weight:600; }
+  .dd-day.dd-today { color:#7a5c2a; font-weight:800; border-bottom: 2px solid #7a5c2a; }
+  .dd-day.dd-past { color:#ccc; cursor:default; }
+  .dd-day.dd-closed { color:#ddd; text-decoration:line-through; cursor:not-allowed; }
 
   /* Form */
   .panel-title { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:400; letter-spacing:0.3em; text-transform:uppercase; margin-bottom:0.2rem; color:#8a7560; }
   .date-trigger {
     background:rgba(122,92,42,0.08); border:1px solid rgba(122,92,42,0.2);
-    border-radius:0; padding:0.5rem 0.7rem; margin-bottom:0.9rem;
+    padding:0.5rem 0.7rem; margin-bottom:0.9rem;
     font-size:0.82rem; color:#2a1f0e; display:flex; align-items:center;
-    gap:0.5rem; cursor:pointer; user-select:none; position:relative; transition:border-color 0.2s;
-    -webkit-tap-highlight-color:transparent; touch-action:manipulation; -webkit-user-select:none;
+    gap:0.5rem; cursor:pointer; position:relative;
   }
-  .date-trigger:hover { border-color:#7a5c2a; }
   .dd-arrow { margin-left:auto; font-size:0.6rem; opacity:0.5; transition:transform 0.2s; }
   .dd-arrow.open { transform:rotate(180deg); }
-  .date-dropdown {
-    position:absolute; top:calc(100% + 4px); left:0; right:0;
-    background:#e8dcc8; border:1px solid rgba(122,92,42,0.2);
-    border-radius:0; z-index:50; box-shadow:0 8px 28px rgba(0,0,0,0.2);
-    padding:0.75rem; display:none;
-  }
-  .date-dropdown.open { display:block; }
-  .dd-cal-header { display:flex; align-items:center; justify-content:space-between; margin-bottom:0.5rem; }
-  .dd-cal-month { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:400; letter-spacing:0.2em; text-transform:uppercase; color:#8a7560; }
-  .dd-nav { display:flex; gap:0.3rem; }
-  .dd-nav button {
-    background:transparent; border:1px solid rgba(122,92,42,0.25); color:#8a7560;
-    width:22px; height:22px; border-radius:0; cursor:pointer; font-size:0.68rem;
-    display:flex; align-items:center; justify-content:center; transition:all 0.12s; touch-action:manipulation;
-  }
-  .dd-nav button:hover { border-color:#7a5c2a; color:#2a1f0e; }
-  .dd-grid { display:grid; grid-template-columns:repeat(7,1fr); gap:2px; }
-  .dd-label { text-align:center; font-size:0.55rem; font-weight:400; letter-spacing:0.06em; text-transform:uppercase; color:#8a7560; padding-bottom:0.25rem; }
-  .dd-day { aspect-ratio:1; display:flex; flex-direction:column; align-items:center; justify-content:center; border-radius:0; cursor:pointer; font-size:0.68rem; color:#2a1f0e; transition:all 0.1s; border:1px solid transparent; position:relative; touch-action:manipulation; }
-  .dd-day:hover:not(.dd-empty):not(.dd-past):not(.dd-closed) { background:rgba(122,92,42,0.08); border-color:rgba(122,92,42,0.2); }
-  .dd-day.dd-selected { background:rgba(122,92,42,0.15); border-color:#7a5c2a; color:#2a1f0e; font-weight:600; }
-  .dd-day.dd-today { color:#7a5c2a; font-weight:700; }
-  .dd-day.dd-past { color:#8a7560; cursor:default; opacity:0.4; }
-  .dd-day.dd-closed { color:#8a7560; cursor:not-allowed; opacity:0.25; text-decoration:line-through; }
-  .dd-day.dd-empty { cursor:default; }
-  .group-banner {
-    background:rgba(122,92,42,0.08); border:1px solid rgba(122,92,42,0.2);
-    border-radius:0; padding:0.75rem 1rem; margin-bottom:0.65rem;
-    font-size:0.82rem; color:#2a1f0e; line-height:1.6;
-  }
+
   .form-group { margin-bottom:0.9rem; }
   label { display:block; font-size:0.63rem; font-weight:400; letter-spacing:0.1em; text-transform:uppercase; color:#8a7560; margin-bottom:0.3rem; }
   input, select, textarea {
     width:100%; background:rgba(255,255,255,0.5); border:1px solid rgba(122,92,42,0.2);
-    border-radius:0; padding:0.5rem 0.7rem; color:#2a1f0e;
-    font-family:'DM Sans',sans-serif; font-size:0.82rem;
-    transition:border-color 0.2s; outline:none; appearance:none;
+    padding:0.5rem 0.7rem; color:#2a1f0e; font-family:'DM Sans',sans-serif; font-size:0.82rem;
+    outline:none; appearance:none;
   }
-  input:focus, select:focus, textarea:focus { border-color:#7a5c2a; background:rgba(255,255,255,0.65); }
-  input::placeholder { color:#8a7560; }
-  select { cursor:pointer; }
-  select option { background:#e8dcc8; color:#2a1f0e; }
-  textarea { resize:vertical; min-height:52px; }
-  .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
   .btn-primary {
     width:100%; background:#1a1510; color:rgba(235,220,195,0.9);
-    border:1px solid rgba(235,220,195,0.35); border-radius:0; padding:0.8rem;
-    font-family:'DM Sans',sans-serif; font-weight:400; font-size:0.68rem;
+    border:1px solid rgba(235,220,195,0.35); padding:0.8rem;
+    font-family:'DM Sans',sans-serif; font-size:0.68rem;
     letter-spacing:0.25em; text-transform:uppercase; cursor:pointer;
     transition:all 0.2s; margin-top:0.6rem;
-    -webkit-tap-highlight-color:transparent; touch-action:manipulation;
   }
   .btn-primary:hover { border-color:rgba(235,220,195,0.75); color:#fff; background:#0d0b08; }
-  .btn-primary:disabled { opacity:0.35; cursor:not-allowed; }
-  .toast {
-    position:fixed; bottom:1.5rem; right:1.5rem;
-    background:#e8dcc8; border:1px solid rgba(122,92,42,0.2);
-    border-radius:0; padding:0.8rem 1.2rem; display:flex; align-items:center; gap:0.75rem;
-    z-index:1000; box-shadow:0 4px 20px rgba(0,0,0,0.2);
-    transform:translateY(80px); opacity:0;
-    transition:all 0.35s cubic-bezier(0.34,1.56,0.64,1); max-width:290px; color:#2a1f0e;
-  }
-  .toast.show { transform:translateY(0); opacity:1; }
-  .toast-icon { font-size:1.05rem; }
-  .toast-title { font-weight:500; font-size:0.84rem; color:#2a1f0e; }
-  .toast-msg { color:#8a7560; font-size:0.74rem; margin-top:1px; }
-  .booking-popup{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:center;z-index:500;opacity:0;pointer-events:none;visibility:hidden;transition:opacity 0.25s,visibility 0.25s;}
-  .booking-popup.open{opacity:1;pointer-events:all;visibility:visible;}
-  .booking-popup-card{background:#e8dcc8;border:1px solid rgba(122,92,42,0.2);border-radius:0;padding:2rem 2rem 1.6rem;width:92%;max-width:340px;box-shadow:0 20px 60px rgba(0,0,0,0.3);transform:translateY(16px);transition:transform 0.25s cubic-bezier(0.34,1.56,0.64,1);}
-  .booking-popup.open .booking-popup-card{transform:translateY(0);}
-  .booking-popup-icon{font-size:2.2rem;text-align:center;margin-bottom:0.6rem;}
-  .booking-popup-title{font-family:'DM Sans',sans-serif;font-size:0.95rem;font-weight:400;letter-spacing:0.12em;text-transform:uppercase;text-align:center;color:#2a1f0e;margin-bottom:0.3rem;}
-  .booking-popup-sub{font-size:0.78rem;color:#8a7560;text-align:center;margin-bottom:1.3rem;}
-  .booking-popup-details{background:rgba(122,92,42,0.06);border:1px solid rgba(122,92,42,0.15);border-radius:0;padding:0.9rem 1rem;margin-bottom:1rem;}
-  .booking-detail-row{display:flex;justify-content:space-between;align-items:center;padding:0.22rem 0;}
-  .booking-detail-row:not(:last-child){border-bottom:1px solid rgba(122,92,42,0.1);}
-  .booking-detail-label{color:#8a7560;font-size:0.7rem;text-transform:uppercase;letter-spacing:0.07em;font-weight:400;}
-  .booking-detail-value{color:#2a1f0e;font-weight:500;font-size:0.82rem;}
-  .booking-popup-close{width:100%;background:#2e2a24;color:rgba(235,215,175,0.9);border:none;border-radius:0;padding:0.8rem;font-family:'DM Sans',sans-serif;font-weight:400;font-size:0.68rem;letter-spacing:0.25em;text-transform:uppercase;cursor:pointer;transition:all 0.2s;margin-top:0.3rem;}
-  .booking-popup-close:hover{background:#3d3830;}
-  ::-webkit-scrollbar { width:3px; }
-  ::-webkit-scrollbar-track { background:transparent; }
-  ::-webkit-scrollbar-thumb { background:rgba(122,92,42,0.2); border-radius:2px; }
-  
-  /* ── REVIEW ROTATOR (Neu mit Swipe-Animation) ── */
+
+  /* Review Rotator - Stabilisierte Höhe */
   .review-rotator {
     padding: 1.2rem 1.4rem;
     border: 1px solid rgba(122,92,42,0.2);
-    border-radius: 0;
-    min-height: 110px;
+    min-height: 145px; /* Verlängert für mehr Stabilität */
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -327,79 +242,34 @@
     transform: translateX(40px);
     transition: opacity 0.4s ease, transform 0.4s ease-out;
   }
-  .review-slot.visible { 
-    opacity: 1; 
-    transform: translateX(0);
-  }
-  .review-slot.slide-out {
-    opacity: 0;
-    transform: translateX(-40px);
-  }
-  .review-stars-sm {
-    color: #c8902a;
-    font-size: 0.8rem;
-    letter-spacing: 0.1em;
-    margin-bottom: 0.6rem;
-  }
-  .review-quote {
-    font-size: 0.9rem;
-    color: #4a3820;
-    line-height: 1.6;
-    font-style: italic;
-    margin-bottom: 0.6rem;
-  }
-  .review-who {
-    font-size: 0.75rem;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    color: #8a7560;
-  }
+  .review-slot.visible { opacity: 1; transform: translateX(0); }
+  .review-stars-sm { color: #c8902a; font-size: 0.8rem; margin-bottom: 0.6rem; }
+  .review-quote { font-size: 0.9rem; color: #4a3820; line-height: 1.6; font-style: italic; }
 
-  /* ── BARBOOK ANIMATIONS ── */
-  .cover-bottom-layer, .cover-top-layer {
-      transform-origin: 200px 175px;
-      will-change: transform, opacity;
-  }
-  /* Animation geändert auf '1 forwards' für einmaliges Abspielen */
+  /* Logo Animations (Once) */
   .cover-bottom-layer { animation: flipCover var(--anim-duration) 1 forwards, toggleBottom var(--anim-duration) 1 forwards; }
   .cover-top-layer { animation: flipCover var(--anim-duration) 1 forwards, toggleTop var(--anim-duration) 1 forwards; }
+  .brand-text {
+    font-family: 'Montserrat', sans-serif; font-size: 45px; font-weight: 900; 
+    text-transform: uppercase; fill: var(--text-color); opacity: 0;
+    animation: textFade var(--anim-duration) 1 forwards;
+  }
 
   @keyframes flipCover {
-      0%, 15% { transform: rotateY(0deg); animation-timing-function: cubic-bezier(0.5, 0, 1, 1); } 
-      25% { transform: rotateY(-90deg); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); } 
-      40%, 100% { transform: rotateY(-180deg); } 
+    0%, 15% { transform: rotateY(0deg); } 25% { transform: rotateY(-90deg); } 40%, 100% { transform: rotateY(-180deg); } 
   }
-  @keyframes toggleBottom {
-      0%, 24.99% { opacity: 0; }
-      25%, 100% { opacity: 1; }
-  }
-  @keyframes toggleTop {
-      0%, 24.99% { opacity: 1; }
-      25%, 100% { opacity: 0; }
-  }
-  .brand-text {
-      font-family: 'Montserrat', sans-serif;
-      font-size: 45px;
-      font-weight: 900; 
-      text-transform: uppercase; 
-      fill: var(--text-color);
-      letter-spacing: 3px; 
-      opacity: 0;
-      filter: url(#deboss-effect);
-      /* Animation geändert auf '1 forwards' */
-      animation: textFade var(--anim-duration) 1 forwards;
-  }
+  @keyframes toggleBottom { 0%, 24.99% { opacity: 0; } 25%, 100% { opacity: 1; } }
+  @keyframes toggleTop { 0%, 24.99% { opacity: 1; } 25%, 100% { opacity: 0; } }
   @keyframes textFade {
-      0%, 35% { opacity: 0; transform: translateY(6px); } 
-      45%, 95% { opacity: 1; transform: translateY(0); } 
-      98%, 100% { opacity: 1; transform: translateY(0); } /* Geändert, damit Text stehen bleibt */
+    0%, 35% { opacity: 0; transform: translateY(6px); } 45%, 100% { opacity: 1; transform: translateY(0); } 
   }
 
-  @media (max-width:640px) {
-    main { padding:0 0.5rem 2rem; }
-    .main-card { width:100%; overflow:hidden; }
-    body { font-size:14px; }
-  }
+  /* Toasts, Popups, Modals... */
+  .toast { position:fixed; bottom:1.5rem; right:1.5rem; background:#e8dcc8; border:1px solid rgba(122,92,42,0.2); padding:0.8rem 1.2rem; display:flex; align-items:center; gap:0.75rem; z-index:1000; transform:translateY(80px); opacity:0; transition:all 0.35s; max-width:290px; color:#2a1f0e; }
+  .toast.show { transform:translateY(0); opacity:1; }
+  .booking-popup{position:fixed;inset:0;background:rgba(0,0,0,0.5);display:none;align-items:center;justify-content:center;z-index:500;}
+  .booking-popup.open{display:flex;}
+  .booking-popup-card{background:#e8dcc8;padding:2rem;width:92%;max-width:340px;box-shadow:0 20px 60px rgba(0,0,0,0.3);}
 </style>
 </head>
 <body>
@@ -409,69 +279,22 @@
       <div class="card-header-logo-box">
         <img src="Logo_TheBirdYard_SOLO.jpg" alt="The Birdyard" class="card-header-logo">
       </div>
-      
       <div class="card-header-barbook">
         <svg viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
-            <defs>
-                <filter id="sticker" x="-20%" y="-20%" width="140%" height="140%">
-                    <feMorphology in="SourceAlpha" operator="dilate" radius="1.5" result="thickened" />
-                    <feGaussianBlur in="thickened" stdDeviation="0.8" result="blurred" />
-                    <feComponentTransfer in="blurred" result="smoothedAlpha">
-                        <feFuncA type="linear" slope="50" intercept="-10" />
-                    </feComponentTransfer>
-                    <feFlood flood-color="#f5ebd0" result="edgeColor" />
-                    <feComposite in="edgeColor" in2="smoothedAlpha" operator="in" result="coloredBorder" />
-                    <feDropShadow in="coloredBorder" dx="2" dy="8" stdDeviation="5" flood-color="rgba(0,0,0,0.25)" result="shadow" />
-                    <feMerge>
-                        <feMergeNode in="shadow" />
-                        <feMergeNode in="coloredBorder" />
-                        <feMergeNode in="SourceGraphic" />
-                    </feMerge>
-                </filter>
-                <filter id="deboss-effect" x="-10%" y="-10%" width="120%" height="120%">
-                    <feOffset dx="0" dy="1.2" />
-                    <feGaussianBlur stdDeviation="1" result="offset-blur" />
-                    <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse" />
-                    <feFlood flood-color="black" flood-opacity="0.5" result="shadow-color" />
-                    <feComposite operator="in" in="shadow-color" in2="inverse" result="inner-shadow" />
-                    <feOffset dx="0" dy="-0.6" in="SourceGraphic" result="offset-highlight" />
-                    <feComposite operator="out" in="offset-highlight" in2="SourceGraphic" result="inverse-highlight" />
-                    <feFlood flood-color="white" flood-opacity="0.4" result="highlight-color" />
-                    <feComposite operator="in" in="highlight-color" in2="inverse-highlight" result="inner-highlight" />
-                    <feMerge>
-                        <feMergeNode in="SourceGraphic" />
-                        <feMergeNode in="inner-shadow" />
-                        <feMergeNode in="inner-highlight" />
-                    </feMerge>
-                </filter>
-                <linearGradient id="foldShadow" x1="0%" y1="0%" x2="100%" y2="0%">
-                    <stop offset="0%" stop-color="rgba(0,0,0,0)" />
-                    <stop offset="30%" stop-color="rgba(0,0,0,0.02)" />
-                    <stop offset="50%" stop-color="rgba(0,0,0,0.1)" />
-                    <stop offset="70%" stop-color="rgba(0,0,0,0.02)" />
-                    <stop offset="100%" stop-color="rgba(0,0,0,0)" />
-                </linearGradient>
-            </defs>
-            <g filter="url(#sticker)">
-                <g class="cover-bottom-layer">
-                    <rect x="200" y="68" width="145" height="214" fill="var(--brand-dark)" rx="4" />
-                    <rect x="200" y="75" width="125" height="200" fill="var(--page-color)" rx="2" />
-                </g>
+            <g class="cover-bottom-layer">
                 <rect x="200" y="68" width="145" height="214" fill="var(--brand-dark)" rx="4" />
                 <rect x="200" y="75" width="125" height="200" fill="var(--page-color)" rx="2" />
-                <rect x="180" y="75" width="40" height="200" fill="url(#foldShadow)" />
-                <g class="cover-top-layer">
-                    <rect x="200" y="68" width="145" height="214" fill="var(--brand-main)" rx="4" />
-                    <rect x="320" y="68" width="2" height="214" fill="#18181b" opacity="0.1" />
-                </g>
-                <text x="200" y="188" text-anchor="middle" class="brand-text">barbook</text>
             </g>
+            <rect x="200" y="68" width="145" height="214" fill="var(--brand-dark)" rx="4" />
+            <rect x="200" y="75" width="125" height="200" fill="var(--page-color)" rx="2" />
+            <g class="cover-top-layer">
+                <rect x="200" y="68" width="145" height="214" fill="var(--brand-main)" rx="4" />
+            </g>
+            <text x="200" y="188" text-anchor="middle" class="brand-text">barbook</text>
         </svg>
       </div>
-
     </div>
     <div class="calendar-panel">
-      
       <div class="cal-wrapper">
         <div class="cal-header">
           <div class="cal-month" id="cal-month-label"></div>
@@ -482,12 +305,10 @@
         </div>
         <div class="cal-grid" id="cal-grid"></div>
       </div>
-      
       <div class="review-rotator">
         <div class="review-slot" id="review-slot">
           <div class="review-stars-sm"></div>
           <p class="review-quote"></p>
-          <div class="review-who"></div>
         </div>
       </div>
     </div>
@@ -509,675 +330,136 @@
       </div>
       <form id="res-form" onsubmit="submitReservation(event)">
         <div class="form-row">
-          <div class="form-group">
-            <label>Vorname</label>
-            <input type="text" id="f-firstname" maxlength="60" required autocomplete="given-name">
-          </div>
-          <div class="form-group">
-            <label>Nachname</label>
-            <input type="text" id="f-lastname" maxlength="60" required autocomplete="family-name">
-          </div>
+          <div class="form-group"><label>Vorname</label><input type="text" id="f-firstname" required></div>
+          <div class="form-group"><label>Nachname</label><input type="text" id="f-lastname" required></div>
         </div>
         <div class="form-row">
-          <div class="form-group">
-            <label>Telefon</label>
-            <input type="tel" id="f-phone" maxlength="30" required autocomplete="tel">
-          </div>
-          <div class="form-group">
-            <label>Personen</label>
+          <div class="form-group"><label>Telefon</label><input type="tel" id="f-phone" required></div>
+          <div class="form-group"><label>Personen</label>
             <select id="f-guests" required onchange="onGuestsChange()">
               <option value=""></option>
-              <option>1</option><option>2</option><option>3</option>
-              <option>4</option><option>5</option><option>6</option>
-              <option>7</option><option>8</option><option>9</option>
-              <option value="10+">10+ (Gruppenanfrage)</option>
+              <option>1</option><option>2</option><option>3</option><option>4</option><option>5</option><option>6</option><option>7</option><option>8</option><option>9</option><option value="10+">10+</option>
             </select>
           </div>
         </div>
-        <div class="group-banner" id="group-banner" style="display:none">
-          Gruppenanfragen ab 10 Personen bitte hier direkt an uns schicken, wir melden uns in Kürze.
-        </div>
-        <div id="stripe-banner" style="display:none;background:rgba(156,122,60,0.08);border:1px solid rgba(156,122,60,0.3);border-radius:10px;padding:16px 18px;margin:12px 0;">
-          <p style="font-size:13px;color:#8a7a65;margin:0 0 6px;line-height:1.5;">
-            🔒 Bei Reservierungen ab 8 Personen bitten wir um eine Kreditkarte als Sicherheit.
-            <strong style="color:#6a5a45;">Es wird kein Betrag abgebucht.</strong>
-          </p>
-          <p style="font-size:12px;color:#a04040;margin:0 0 14px;line-height:1.5;">
-            &#9432; Stornierungen müssen bis zu <strong>12 Stunden vor dem Besuch</strong> erfolgen. Bei No-Show wird eine Gebühr von <strong>5€ pro Person</strong> verrechnet.
-          </p>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:8px;">
-            <div style="grid-column:1/-1;">
-              <label style="font-size:11px;color:#8a7a65;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px;">Kartennummer</label>
-              <div id="card-number-element" style="background:white;border:1px solid rgba(180,160,130,0.4);border-radius:8px;padding:12px;"></div>
-            </div>
-            <div>
-              <label style="font-size:11px;color:#8a7a65;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px;">Verfallsdatum</label>
-              <div id="card-expiry-element" style="background:white;border:1px solid rgba(180,160,130,0.4);border-radius:8px;padding:12px;"></div>
-            </div>
-            <div>
-              <label style="font-size:11px;color:#8a7a65;letter-spacing:1px;text-transform:uppercase;display:block;margin-bottom:4px;">CVC</label>
-              <div id="card-cvc-element" style="background:white;border:1px solid rgba(180,160,130,0.4);border-radius:8px;padding:12px;"></div>
-            </div>
-          </div>
-          <div id="card-errors" style="color:#a04040;font-size:12px;margin-top:4px;"></div>
-          <div style="text-align:right;margin-top:8px;">
-            <a href="https://stripe.com" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:5px;text-decoration:none;opacity:0.7;">
-              <span style="font-size:10px;color:#9a8a75;font-family:Arial,sans-serif;letter-spacing:0.5px;font-style:italic;">Gesichert durch</span>
-              <img src="https://images.ctfassets.net/fzn2n1nzq965/HTTOloNPhisV9P4hlMPNA/cacf1bb88b9fc492dfad34378d844280/Stripe_wordmark_-_blurple__small_.png" alt="Stripe" style="height:15px;width:auto;display:inline-block;vertical-align:middle;">
-            </a>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>E-Mail</label>
-          <input type="email" id="f-email" maxlength="120" required autocomplete="email">
-        </div>
-        <div class="form-group">
-          <label>Uhrzeit</label>
-          <select id="f-time" required>
-            <option value="">Uhrzeit wählen</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Anmerkungen (optional)</label>
-          <textarea id="f-notes" placeholder="Allergien, Anlässe, Wünsche…" maxlength="400"></textarea>
-        </div>
-        <button type="submit" class="btn-primary" id="submit-btn" onclick="submitReservation(event)" style="position:relative;z-index:10;">Reservierung bestätigen</button>
+        <div class="form-group"><label>E-Mail</label><input type="email" id="f-email" required></div>
+        <div class="form-group"><label>Uhrzeit</label><select id="f-time" required><option value="">Wählen</option></select></div>
+        <div class="form-group"><label>Notiz</label><textarea id="f-notes"></textarea></div>
+        <button type="submit" class="btn-primary" id="submit-btn">Bestätigen</button>
       </form>
     </div>
   </div>
 </main>
+
 <div class="booking-popup" id="booking-popup">
   <div class="booking-popup-card">
-    <div style="display:flex;align-items:center;gap:0.8rem;margin-bottom:1.2rem;padding-bottom:1rem;border-bottom:1px solid rgba(122,92,42,0.15);">
-      <div style="width:52px;height:52px;background:#1a1510;border:1px solid rgba(180,145,80,0.35);border-radius:3px;display:flex;align-items:center;justify-content:center;overflow:hidden;flex-shrink:0;">
-        <img src="Logo_TheBirdYard_SOLO.jpg" style="width:46px;height:46px;object-fit:contain;display:block;" alt="The Birdyard">
-      </div>
-      <div>
-        <div style="font-family:'DM Sans',sans-serif;font-size:0.62rem;font-weight:400;letter-spacing:0.28em;text-transform:uppercase;color:rgba(235,215,175,0.9);background:#2e2a24;padding:0.15em 0.5em;display:inline-block;margin-bottom:0.15em;">The Birdyard</div>
-        <div class="booking-popup-title" style="margin:0;text-align:left;">Reservierung bestätigt</div>
-      </div>
-    </div>
-    <div class="booking-popup-icon" style="display:none;">✓</div>
-    <div class="booking-popup-sub">Wir freuen uns auf deinen Besuch!</div>
-    <div class="booking-popup-details">
-      <div class="booking-detail-row">
-        <span class="booking-detail-label">Name</span>
-        <span class="booking-detail-value" id="bp-name"></span>
-      </div>
-      <div class="booking-detail-row">
-        <span class="booking-detail-label">Datum</span>
-        <span class="booking-detail-value" id="bp-date"></span>
-      </div>
-      <div class="booking-detail-row">
-        <span class="booking-detail-label">Uhrzeit</span>
-        <span class="booking-detail-value" id="bp-time"></span>
-      </div>
-      <div class="booking-detail-row">
-        <span class="booking-detail-label">Personen</span>
-        <span class="booking-detail-value" id="bp-guests"></span>
-      </div>
-    </div>
-    <div style="font-size:0.72rem;color:#8a7a65;text-align:center;margin-bottom:1rem;">Eine Bestätigung wurde an deine E-Mail gesendet.</div>
-    <button class="booking-popup-close" onclick="closeBookingPopup()">Alles klar</button>
+    <h3 id="bp-name"></h3>
+    <p id="bp-date"></p>
+    <button onclick="location.reload()">Alles klar</button>
   </div>
 </div>
+
 <div class="toast" id="toast">
-  <div class="toast-icon" id="toast-icon">✓</div>
-  <div>
-    <div class="toast-title" id="toast-title"></div>
-    <div class="toast-msg" id="toast-msg"></div>
-  </div>
+  <div id="toast-title"></div>
+  <div id="toast-msg"></div>
 </div>
+
 <script>
 const SUPABASE_URL = 'https://syqhivfmqtqfnaxogrfp.supabase.co';
 const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InN5cWhpdmZtcXRxZm5heG9ncmZwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzE0NDI1NzMsImV4cCI6MjA4NzAxODU3M30.Ctx5aBFcozWImqDgZul-o7MKCdNV6GAXpLNPO0AHo4c';
 
-// ===== OPENING HOURS =====
-// 3=Wed, 4=Thu: 18:00-23:00 (last booking 22:45), 5=Fri, 6=Sat: 18:00-02:00
-// 0=Sun,1=Mon,2=Tue: closed
-const OPEN_DAYS = {
-  3: { times: genTimes('18:00','22:45'), label: 'Mi & Do' },
-  4: { times: genTimes('18:00','22:45'), label: 'Mi & Do' },
-  5: { times: genTimes('18:00','01:30'), label: 'Fr & Sa' },
-  6: { times: genTimes('18:00','01:30'), label: 'Fr & Sa' },
-};
-
-function genTimes(from, to) {
-  const times = [];
-  let [h, m] = from.split(':').map(Number);
-  const [th, tm] = to.split(':').map(Number);
-  const endMins = th < 6 ? th * 60 + tm + 1440 : th * 60 + tm;
-  while (true) {
-    times.push(String(h).padStart(2,'0') + ':' + String(m).padStart(2,'0'));
-    m += 30; if (m >= 60) { m -= 60; h++; }
-    if (h >= 24) h -= 24;
-    const cur = h < 6 ? h * 60 + m + 1440 : h * 60 + m;
-    if (cur > endMins) break;
-  }
-  return times;
-}
-
-function getDayOfWeek(dateStr) {
-  return new Date(dateStr + 'T12:00:00').getDay();
-}
-
-function isOpenDay(dateStr) {
-  const dow = getDayOfWeek(dateStr);
-  return dow in OPEN_DAYS;
-}
-
-function getTimesForDate(dateStr) {
-  const dow = getDayOfWeek(dateStr);
-  return OPEN_DAYS[dow] ? OPEN_DAYS[dow].times : [];
-}
-
+const OPEN_DAYS = { 3:1, 4:1, 5:1, 6:1 }; 
 const DAY_CAPACITY = 50;
-const monthNames = ['Jänner','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
+const monthNames = ['Januar','Februar','März','April','Mai','Juni','Juli','August','September','Oktober','November','Dezember'];
 const dayNames = ['Mo','Di','Mi','Do','Fr','Sa','So'];
 
-const SUPABASE_FUNCTIONS_URL = 'https://syqhivfmqtqfnaxogrfp.supabase.co/functions/v1';
-const STRIPE_PK = 'pk_test_51T2hpsRrTIzdVbC48ARFpTk7FGaCBVqBk7RX1tErAEt644JgsD4Tchn5O8kJR0vVM8wZAkHHyBxyXibvYJZXQd6P00f3IbLj63';
-let stripe, cardElement;
-
-function initStripe() {
-  if (!stripe) {
-    stripe = Stripe(STRIPE_PK);
-    const elements = stripe.elements();
-    const style = { base: { fontSize: '15px', color: '#2a2118', fontFamily: 'DM Sans, sans-serif', '::placeholder': { color: '#b0a090' } } };
-    const cardNumber = elements.create('cardNumber', { style });
-    const cardExpiry = elements.create('cardExpiry', { style });
-    const cardCvc = elements.create('cardCvc', { style });
-    cardNumber.mount('#card-number-element');
-    cardExpiry.mount('#card-expiry-element');
-    cardCvc.mount('#card-cvc-element');
-    cardElement = cardNumber;
-    [cardNumber, cardExpiry, cardCvc].forEach(el => {
-      el.on('change', e => {
-        document.getElementById('card-errors').textContent = e.error ? e.error.message : '';
-      });
-    });
-  }
-}
-
-let reservations = [];
-let blockedDates = [];
-let selectedDate = null, selectedTime = null;
+let reservations = [], blockedDates = [], selectedDate = null;
 let currentMonth = new Date(), ddMonth = new Date();
 
-function esc(str) {
-  return String(str||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
-}
-
-// ===== SUPABASE =====
 async function sbFetch(method, path, body) {
   const res = await fetch(SUPABASE_URL + '/rest/v1/' + path, {
     method,
-    headers: {
-      'apikey': SUPABASE_KEY,
-      'Authorization': 'Bearer ' + SUPABASE_KEY,
-      'Content-Type': 'application/json',
-      'Prefer': method === 'POST' ? 'return=minimal' : '',
-    },
-    body: body ? JSON.stringify(body) : undefined,
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY, 'Content-Type': 'application/json' },
+    body: body ? JSON.stringify(body) : undefined
   });
-  if (method === 'GET') return res.json();
-  return res;
+  return method === 'GET' ? res.json() : res;
 }
 
 async function loadData() {
-  try {
-    const [resData, blockData] = await Promise.all([
-      sbFetch('GET', 'reservations?select=*'),
-      sbFetch('GET', 'blocked_dates?select=date'),
-    ]);
-    reservations = (resData||[]).map(r=>({
-      id:r.id, date:r.date, time:r.time, table:r.table_num,
-      firstName:r.first_name, lastName:r.last_name,
-      phone:r.phone, email:r.email, guests:r.guests, notes:r.notes,
-    }));
-    blockedDates = (blockData||[]).map(r=>r.date);
-  } catch(e) { reservations = []; blockedDates = []; }
+  const [resData, blockData] = await Promise.all([sbFetch('GET', 'reservations?select=*'), sbFetch('GET', 'blocked_dates?select=date')]);
+  reservations = resData || [];
+  blockedDates = (blockData || []).map(r => r.date);
 }
 
-async function saveReservation(r) {
-  return sbFetch('POST', 'reservations', {
-    id:r.id, date:r.date, time:r.time, table_num:r.table,
-    first_name:r.firstName, last_name:r.lastName,
-    phone:r.phone, email:r.email, guests:r.guests, notes:r.notes||null,
-  });
-}
-
-async function saveGroupRequest(r) {
-  return sbFetch('POST', 'group_requests', {
-    id:r.id, date:r.date, time:r.time,
-    first_name:r.firstName, last_name:r.lastName,
-    phone:r.phone, email:r.email,
-    guests:parseInt(r.guests)||10, notes:r.notes||null, status:'pending',
-  });
-}
-
-// ===== EMAIL =====
-async function sendConfirmationEmail(r) {
-  try {
-    const cancelUrl = window.location.origin + '/cancel.html?id=' + r.id + '&token=' + btoa(r.id + ':' + r.email);
-    await fetch(SUPABASE_FUNCTIONS_URL + '/send-email', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY },
-      body: JSON.stringify({
-        to: r.email,
-        name: r.firstName + ' ' + r.lastName,
-        date: formatDateDisplay(r.date),
-        time: r.time + ' Uhr',
-        guests: r.guests + ' Person(en)',
-        notes: r.notes || '—',
-        reservation_id: r.id,
-        cancel_url: cancelUrl,
-      }),
-    });
-  } catch(e) { console.error('Email error:', e); }
-}
-
-// ===== CAPACITY =====
-function getDayGuestCount(dateStr) {
-  return reservations.filter(r=>r.date===dateStr).reduce((s,r)=>s+(parseInt(r.guests)||1),0);
-}
-function getOccColor(dateStr) {
-  const used=getDayGuestCount(dateStr);
-  if(!used) return null;
-  const pct=(used/DAY_CAPACITY)*100;
-  return pct<50?'occ-green':pct<85?'occ-yellow':'occ-red';
-}
-
-// ===== CALENDAR =====
-function changeMonth(dir) {
-  const next=new Date(currentMonth.getFullYear(),currentMonth.getMonth()+dir,1);
-  const today=new Date(); today.setDate(1); today.setHours(0,0,0,0);
-  if(next<today) return;
-  currentMonth=next; renderCalendar();
-}
-function renderCalendar() {
-  const grid=document.getElementById('cal-grid');
-  const label=document.getElementById('cal-month-label');
-  const year=currentMonth.getFullYear(), month=currentMonth.getMonth();
-  label.textContent=monthNames[month]+' '+year;
-  const today=new Date(); today.setHours(0,0,0,0);
-  let startDow=new Date(year,month,1).getDay(); startDow=startDow===0?6:startDow-1;
-  const dim=new Date(year,month+1,0).getDate();
-  let html=dayNames.map(d=>`<div class="cal-day-label">${d}</div>`).join('');
-  for(let i=0;i<startDow;i++) html+='<div class="cal-day empty"></div>';
-  for(let d=1;d<=dim;d++) {
-    const date=new Date(year,month,d);
-    const ds=formatDate(date);
-    const isPast=date<today, isToday=date.getTime()===today.getTime(), isSel=ds===selectedDate;
-    const isBlocked=blockedDates.includes(ds);
-    const isClosed=!isOpenDay(ds);
-    const isFull=getDayGuestCount(ds)>=DAY_CAPACITY;
-    const unavail=isPast||isBlocked||isClosed||isFull;
-    const oc=!unavail?getOccColor(ds):null;
-    const dot=oc?`<span class="occ-dot ${oc}"></span>`:'';
-    const cls=['cal-day',isToday?'today':'',isPast||isFull?'past':'',(isBlocked||isClosed)&&!isPast?'closed':'',isSel?'selected':''].filter(Boolean).join(' ');
-    const click=!unavail?`onclick="selectDate('${ds}')"`:'' ;
-    html+=`<div class="${cls}" ${click}>${dot}${d}</div>`;
-  }
-  grid.innerHTML=html;
-}
-function selectDate(ds) {
-  const d=new Date(ds+'T00:00:00'), today=new Date(); today.setHours(0,0,0,0);
-  if(d<today||!isOpenDay(ds)||blockedDates.includes(ds)) return;
-  selectedDate=ds; selectedTime=null;
-  document.getElementById('f-time').value='';
-  renderCalendar(); renderTimeDropdown(); updateDateDisplay();
-}
 function formatDate(d) { return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0'); }
-function formatDateDisplay(s) { const d=new Date(s+'T00:00:00'); return String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+d.getFullYear(); }
 
-// ===== DROPDOWN CALENDAR =====
-function toggleDateDropdown() {
-  const dd=document.getElementById('date-dropdown'), arrow=document.getElementById('dd-arrow');
-  const open=dd.classList.contains('open');
-  if(open){dd.classList.remove('open');arrow.classList.remove('open');}
-  else{ddMonth=new Date(currentMonth);renderDdCalendar();dd.classList.add('open');arrow.classList.add('open');}
+function renderCalendar() {
+  const grid = document.getElementById('cal-grid');
+  const year = currentMonth.getFullYear(), month = currentMonth.getMonth();
+  document.getElementById('cal-month-label').textContent = monthNames[month] + ' ' + year;
+  let startDow = new Date(year, month, 1).getDay(); startDow = startDow === 0 ? 6 : startDow - 1;
+  const dim = new Date(year, month + 1, 0).getDate();
+  let html = dayNames.map(d => `<div class="cal-day-label">${d}</div>`).join('');
+  for(let i=0; i<startDow; i++) html += '<div class="cal-day empty"></div>';
+  for(let d=1; d<=dim; d++) {
+    const ds = formatDate(new Date(year, month, d));
+    const isToday = ds === formatDate(new Date());
+    html += `<div class="cal-day ${ds===selectedDate?'selected':''} ${isToday?'today':''}" onclick="selectDate('${ds}')">${d}</div>`;
+  }
+  grid.innerHTML = html;
 }
-function closeDateDropdown(){document.getElementById('date-dropdown').classList.remove('open');document.getElementById('dd-arrow').classList.remove('open');}
-function ddChangeMonth(dir){
-  const next=new Date(ddMonth.getFullYear(),ddMonth.getMonth()+dir,1);
-  const today=new Date(); today.setDate(1); today.setHours(0,0,0,0);
-  if(next<today) return;
-  ddMonth=next; renderDdCalendar();
-}
+
 function renderDdCalendar() {
-  const grid=document.getElementById('dd-grid'), label=document.getElementById('dd-month-label');
-  const year=ddMonth.getFullYear(), month=ddMonth.getMonth();
-  label.textContent=monthNames[month]+' '+year;
-  const today=new Date(); today.setHours(0,0,0,0);
-  let startDow=new Date(year,month,1).getDay(); startDow=startDow===0?6:startDow-1;
-  const dim=new Date(year,month+1,0).getDate();
-  let html=dayNames.map(d=>`<div class="dd-label">${d}</div>`).join('');
-  for(let i=0;i<startDow;i++) html+='<div class="dd-day dd-empty"></div>';
-  for(let d=1;d<=dim;d++){
-    const date=new Date(year,month,d), ds=formatDate(date);
-    const isPast=date<today, isSel=ds===selectedDate, isToday=date.getTime()===today.getTime();
-    const isBlocked=blockedDates.includes(ds), isClosed=!isOpenDay(ds);
-    const unavail=isPast||isBlocked||isClosed;
-    const oc=!unavail?getOccColor(ds):null;
-    const dot=oc?`<span class="occ-dot ${oc}"></span>`:'';
-    const cls=['dd-day',isPast?'dd-past':'',isSel?'dd-selected':'',isToday?'dd-today':'',(isBlocked||isClosed)&&!isPast?'dd-closed':''].filter(Boolean).join(' ');
-    const click=!unavail?`onclick="ddSelectDate('${ds}')"`:'' ;
-    html+=`<div class="${cls}" ${click}>${dot}${d}</div>`;
+  const grid = document.getElementById('dd-grid');
+  const year = ddMonth.getFullYear(), month = ddMonth.getMonth();
+  document.getElementById('dd-month-label').textContent = monthNames[month] + ' ' + year;
+  let startDow = new Date(year, month, 1).getDay(); startDow = startDow === 0 ? 6 : startDow - 1;
+  const dim = new Date(year, month + 1, 0).getDate();
+  let html = dayNames.map(d => `<div class="dd-label">${d}</div>`).join('');
+  for(let i=0; i<startDow; i++) html += '<div class="dd-day dd-empty"></div>';
+  for(let d=1; d<=dim; d++) {
+    const ds = formatDate(new Date(year, month, d));
+    html += `<div class="dd-day ${ds===selectedDate?'dd-selected':''}" onclick="selectDate('${ds}'); toggleDateDropdown();">${d}</div>`;
   }
-  grid.innerHTML=html;
-}
-function ddSelectDate(ds){selectDate(ds);closeDateDropdown();}
-document.addEventListener('click',e=>{if(!document.getElementById('date-display').contains(e.target))closeDateDropdown();});
-function updateDateDisplay(){document.getElementById('date-display-text').textContent=selectedDate?formatDateDisplay(selectedDate):'Bitte Datum wählen';}
-
-// ===== TIME DROPDOWN =====
-function renderTimeDropdown() {
-  const sel=document.getElementById('f-time');
-  sel.innerHTML='<option value="">Uhrzeit wählen</option>';
-  if(!selectedDate){return;}
-  const times=getTimesForDate(selectedDate);
-  const now=new Date(), todayStr=formatDate(now);
-  const curMins=now.getHours()*60+now.getMinutes();
-  times.forEach(t=>{
-    const [h,m]=t.split(':').map(Number);
-    const tMins=h<6?h*60+m+1440:h*60+m;
-    const isToday=selectedDate===todayStr;
-    const isPast=isToday&&tMins<=curMins;
-    const taken=reservations.filter(r=>r.date===selectedDate&&r.time===t).length>=4;
-    const opt=document.createElement('option');
-    opt.value=t;
-    if(isPast){opt.textContent=t+' (vergangen)';opt.disabled=true;}
-    else if(taken){opt.textContent=t+' (ausgebucht)';opt.disabled=true;}
-    else{opt.textContent=t;}
-    sel.appendChild(opt);
-  });
+  grid.innerHTML = html;
 }
 
-// ===== GUEST / GROUP =====
-function onGuestsChange() {
-  const val=document.getElementById('f-guests').value;
-  const isGroup=val==='10+';
-  const needsStripe=parseInt(val)>=8 || isGroup;
-  document.getElementById('group-banner').style.display=isGroup?'block':'none';
-  document.getElementById('stripe-banner').style.display=needsStripe?'block':'none';
-  if(needsStripe) initStripe();
-  document.getElementById('submit-btn').textContent=isGroup?'Anfrage abschicken':'Reservierung bestätigen';
+function selectDate(ds) { 
+  selectedDate = ds; 
+  document.getElementById('date-display-text').textContent = ds;
+  renderCalendar(); renderDdCalendar(); 
 }
 
-// ===== SUBMIT =====
-async function submitReservation(e) {
-  e.preventDefault();
-  if(!selectedDate){showToast('⚠️','Datum fehlt','Bitte Datum wählen.');return;}
-  const timeVal=document.getElementById('f-time').value;
-  if(!timeVal){showToast('⚠️','Uhrzeit fehlt','Bitte Uhrzeit wählen.');return;}
-  const gv=document.getElementById('f-guests').value;
-  const isGroup=gv==='10+';
-  const btn=document.getElementById('submit-btn');
-  btn.textContent='Wird gesendet…'; btn.disabled=true;
-  const r={
-    id:Date.now().toString(36)+Math.random().toString(36).slice(2,6),
-    date:selectedDate, time:timeVal, table:1,
-    firstName:document.getElementById('f-firstname').value.trim().slice(0,60),
-    lastName:document.getElementById('f-lastname').value.trim().slice(0,60),
-    phone:document.getElementById('f-phone').value.trim().slice(0,30),
-    email:document.getElementById('f-email').value.trim().slice(0,120),
-    guests:gv,
-    notes:document.getElementById('f-notes').value.trim().slice(0,400),
-  };
-  try {
-    if(isGroup){
-      await saveGroupRequest(r);
-      document.getElementById('res-form').reset(); onGuestsChange();
-      showToast('✓','Anfrage gesendet','Wir melden uns in Kürze bei dir!');
-    } else {
-      const gn=parseInt(gv)||1;
-      const used=getDayGuestCount(selectedDate);
-      if(used+gn>DAY_CAPACITY){
-        const rem=DAY_CAPACITY-used;
-        showToast('⚠️','Kontingent erreicht',rem>0?`Nur noch ${rem} Plätze frei.`:'Ausgebucht.');
-        btn.textContent='Reservierung bestätigen'; btn.disabled=false; return;
-      }
-      // Stripe für 8+ Personen
-      if(gn>=8 && stripe && cardElement) {
-        const setupRes = await fetch(SUPABASE_FUNCTIONS_URL + '/create-setup-intent', {
-          method:'POST',
-          headers:{'Content-Type':'application/json','apikey':SUPABASE_KEY,'Authorization':'Bearer '+SUPABASE_KEY},
-          body:JSON.stringify({name:r.firstName+' '+r.lastName, email:r.email})
-        });
-        const {client_secret} = await setupRes.json();
-        const {error} = await stripe.confirmCardSetup(client_secret, {
-          payment_method:{card:cardElement, billing_details:{name:r.firstName+' '+r.lastName, email:r.email}}
-        });
-        if(error){
-          document.getElementById('card-errors').textContent=error.message;
-          btn.textContent='Reservierung bestätigen'; btn.disabled=false; return;
-        }
-      }
-      await saveReservation(r);
-      reservations.push(r);
-      await sendConfirmationEmail(r);
-      document.getElementById('res-form').reset();
-      selectedDate=null; selectedTime=null;
-      renderCalendar(); renderTimeDropdown(); updateDateDisplay();
-      showBookingPopup(r);
-    }
-  } catch(err){
-    showToast('⚠️','Fehler','Konnte nicht gesendet werden. Bitte nochmal versuchen.');
-  }
-  btn.textContent=isGroup?'Anfrage abschicken':'Reservierung bestätigen';
-  btn.disabled=false;
-}
+function toggleDateDropdown() { document.getElementById('date-dropdown').classList.toggle('open'); }
 
-function showBookingPopup(r) {
-  document.getElementById('bp-name').textContent = r.firstName + ' ' + r.lastName;
-  document.getElementById('bp-date').textContent = formatDateDisplay(r.date);
-  document.getElementById('bp-time').textContent = r.time + ' Uhr';
-  document.getElementById('bp-guests').textContent = r.guests + ' Person(en)';
-  document.getElementById('booking-popup').classList.add('open');
-}
-function closeBookingPopup() {
-  document.getElementById('booking-popup').classList.remove('open');
-}
-
-// ===== TOAST =====
-function showToast(icon,title,msg){
-  document.getElementById('toast-icon').textContent=icon;
-  document.getElementById('toast-title').textContent=title;
-  document.getElementById('toast-msg').textContent=msg;
-  const t=document.getElementById('toast');
-  t.classList.add('show'); setTimeout(()=>t.classList.remove('show'),4200);
-}
-
-// ===== MOBILE TOUCH =====
-document.addEventListener('touchend',function(e){
-  const el=e.target.closest('.cal-day,.dd-day,.date-trigger');
-  if(!el) return;
-  e.preventDefault();
-  if(el.classList.contains('cal-day')&&!el.classList.contains('past')&&!el.classList.contains('empty')&&!el.classList.contains('closed')){
-    const m=el.getAttribute('onclick')?.match(/'([^']+)'/); if(m) selectDate(m[1]);
-  } else if(el.classList.contains('dd-day')&&!el.classList.contains('dd-past')&&!el.classList.contains('dd-empty')&&!el.classList.contains('dd-closed')){
-    const m=el.getAttribute('onclick')?.match(/'([^']+)'/); if(m) ddSelectDate(m[1]);
-  } else if(el.classList.contains('date-trigger')||el.closest('.date-trigger')){
-    if(!el.closest('.date-dropdown')) toggleDateDropdown();
-  }
-},{passive:false});
-
-// ===== INIT =====
 async function init() {
   await loadData();
-
-  // Automatisches Auswählen des heutigen Datums beim Öffnen
-  const today = new Date();
-  const todayStr = formatDate(today);
-  
-  // Prüfen, ob heute geöffnet ist und nicht voll
-  if (isOpenDay(todayStr) && !blockedDates.includes(todayStr) && getDayGuestCount(todayStr) < DAY_CAPACITY) {
-    selectDate(todayStr);
-  }
-
-  renderCalendar(); 
-  renderTimeDropdown();
-  
-  setInterval(async()=>{ 
-    await loadData(); 
-    renderCalendar(); 
-    renderTimeDropdown(); 
-  }, 60000);
+  const today = formatDate(new Date());
+  if(OPEN_DAYS[new Date().getDay()]) selectDate(today);
+  renderCalendar();
 }
 init();
 
-// ── Review rotator (live from Supabase) ──
-(function(){
+// Simple Rotator
+(async function(){
   const slot = document.getElementById('review-slot');
-  if(!slot) return;
-  let reviews = [];
+  const fbRes = await fetch(SUPABASE_URL + '/rest/v1/feedback?select=overall_rating,comment&comment=not.is.null&limit=10', {
+    headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
+  });
+  const data = await fbRes.json();
   let idx = 0;
-  let timer = null;
-
-  function showReview(r) {
-    if (slot.classList.contains('visible')) {
-      slot.classList.remove('visible');
-      slot.classList.add('slide-out');
-      // Warte, bis die Slide-Out Animation beendet ist
-      setTimeout(() => updateReview(r), 400);
-    } else {
-      updateReview(r);
-    }
-  }
-
-  function updateReview(r) {
-    slot.classList.remove('slide-out');
-    slot.querySelector('.review-stars-sm').textContent = '★'.repeat(r.stars) + (r.stars<5?'☆'.repeat(5-r.stars):'');
-    slot.querySelector('.review-quote').textContent = '„' + r.text + '“';
-    slot.querySelector('.review-who').textContent = r.who;
-    
-    // Reflow auslösen, damit die Rücksetzung auf Startposition sofort greift
-    void slot.offsetWidth; 
-    
-    slot.classList.add('visible');
-  }
-
-  function startRotator() {
-    if(!reviews.length) return;
-    showReview(reviews[idx]);
-    if(timer) clearInterval(timer);
-    timer = setInterval(()=>{ idx=(idx+1)%reviews.length; showReview(reviews[idx]); }, 10000);
-  }
-
-  async function loadReviews() {
-    try {
-      const fbRes = await fetch(SUPABASE_URL + '/rest/v1/feedback?select=overall_rating,comment,reservation_id&archived=eq.false&comment=not.is.null&order=submitted_at.desc&limit=50', {
-        headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
-      });
-      const fbData = await fbRes.json();
-      if(!Array.isArray(fbData) || !fbData.length) return;
-
-      const resIds = [...new Set(fbData.filter(f=>f.reservation_id).map(f=>f.reservation_id))];
-      let resMap = {};
-      if(resIds.length) {
-        const rRes = await fetch(SUPABASE_URL + '/rest/v1/reservations?select=id,firstName,lastName&id=in.(' + resIds.join(',') + ')', {
-          headers: { 'apikey': SUPABASE_KEY, 'Authorization': 'Bearer ' + SUPABASE_KEY }
-        });
-        const rData = await rRes.json();
-        if(Array.isArray(rData)) rData.forEach(r => resMap[r.id] = r);
-      }
-
-      reviews = fbData
-        .filter(f => f.comment && f.comment.trim() && f.overall_rating)
-        .map(f => {
-          const res = resMap[f.reservation_id];
-          let who = 'Gast — Wien';
-          if(res && res.firstName && res.lastName) {
-            who = res.firstName[0].toUpperCase() + '. ' + res.lastName[0].toUpperCase() + '. — Wien';
-          }
-          return { stars: Math.round(f.overall_rating), text: f.comment.trim(), who };
-        });
-
-      for(let i=reviews.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [reviews[i],reviews[j]]=[reviews[j],reviews[i]]; }
-      if(reviews.length) startRotator();
-    } catch(e) {}
-  }
-
-  loadReviews();
-})();</script>
-
-<footer style="border-top:1px solid rgba(156,122,60,0.12);padding:24px 20px;margin-top:40px;text-align:center;">
-  <div style="display:flex;justify-content:center;align-items:center;gap:20px;flex-wrap:wrap;margin-bottom:10px;">
-    <a href="#" onclick="document.getElementById('modal-impressum').style.display='flex';return false;" style="font-size:0.7rem;color:#9a8a75;text-decoration:none;letter-spacing:1px;text-transform:uppercase;">Impressum</a>
-    <span style="color:#c8b89a;font-size:0.6rem;">·</span>
-    <a href="#" onclick="document.getElementById('modal-datenschutz').style.display='flex';return false;" style="font-size:0.7rem;color:#9a8a75;text-decoration:none;letter-spacing:1px;text-transform:uppercase;">Datenschutz</a>
-    <span style="color:#c8b89a;font-size:0.6rem;">·</span>
-    <a href="#" onclick="document.getElementById('modal-agb').style.display='flex';return false;" style="font-size:0.7rem;color:#9a8a75;text-decoration:none;letter-spacing:1px;text-transform:uppercase;">AGB</a>
-    <span style="color:#c8b89a;font-size:0.6rem;">·</span>
-    <a href="/cdn-cgi/l/email-protection#4b232e2727240b3f232e2922392f322a392f652a3f" style="font-size:0.7rem;color:#9a8a75;text-decoration:none;letter-spacing:1px;text-transform:uppercase;">Kontakt</a>
-  </div>
-  <p style="font-size:0.65rem;color:#b0a090;margin:0;letter-spacing:0.5px;">© 2024 Mama Liu and Sons GmbH · FN 467834t · ATU72131524</p>
-</footer>
-
-<style>
-  .modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,0.7);display:none;align-items:center;justify-content:center;z-index:1000;padding:20px;backdrop-filter:blur(4px);}
-  .modal-box{background:#faf8f4;border-radius:14px;padding:32px;max-width:560px;width:100%;max-height:80vh;overflow-y:auto;position:relative;}
-  .modal-close{position:absolute;top:14px;right:16px;background:none;border:none;font-size:1.4rem;cursor:pointer;color:#8a7a65;}
-  .modal-box h2{font-family:'Playfair Display',serif;font-size:1.3rem;color:#2a2118;margin:0 0 16px;}
-  .modal-box h3{font-size:0.9rem;color:#2a2118;margin:16px 0 6px;}
-  .modal-box p,.modal-box li{font-size:0.82rem;color:#5a4a35;line-height:1.7;margin:0 0 8px;}
-  .modal-box ul{padding-left:18px;}
-  .modal-box a{color:var(--accent);}
-</style>
-
-<div class="modal-overlay" id="modal-impressum" onclick="if(event.target===this)this.style.display='none'">
-  <div class="modal-box">
-    <button class="modal-close" onclick="document.getElementById('modal-impressum').style.display='none'">×</button>
-    <h2>Impressum</h2>
-    <h3>Angaben gemäß § 5 ECG</h3>
-    <p><strong>Mama Liu and Sons GmbH</strong><br>
-    Lange Gasse 74/1<br>1080 Wien, Österreich</p>
-    <p>E-Mail: <a href="/cdn-cgi/l/email-protection#c7afa2ababa887b3afa2a5aeb5a3bea6b5a3e9a6b3"><span class="__cf_email__" data-cfemail="3c54595050537c4854595e554e58455d4e58125d48">[email&#160;protected]</span></a></p>
-    <p>Firmenbuchnummer: FN 467834t<br>
-    Firmengericht: Handelsgericht Wien<br>
-    UID-Nummer: ATU72131524</p>
-    <p>Unternehmensgegenstand: Gastronomie (Bar &amp; Restaurant)<br>
-    Behörde gem. ECG: Magistratisches Bezirksamt des VIII. Bezirkes</p>
-    <h3>Anwendbare Rechtsvorschriften</h3>
-    <p>Gewerbeordnung 1994 (§ 111 Abs 1 Z 2 – Gastgewerbe)</p>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modal-datenschutz" onclick="if(event.target===this)this.style.display='none'">
-  <div class="modal-box">
-    <button class="modal-close" onclick="document.getElementById('modal-datenschutz').style.display='none'">×</button>
-    <h2>Datenschutzerklärung</h2>
-    <h3>Verantwortlicher</h3>
-    <p>Mama Liu and Sons GmbH, Lange Gasse 74/1, 1080 Wien<br>
-    E-Mail: <a href="/cdn-cgi/l/email-protection#8ae2efe6e6e5cafee2efe8e3f8eef3ebf8eea4ebfe"><span class="__cf_email__" data-cfemail="a7cfc2cbcbc8e7d3cfc2c5ced5c3dec6d5c389c6d3">[email&#160;protected]</span></a></p>
-    <h3>Erhobene Daten</h3>
-    <p>Bei der Reservierung erheben wir: Name, Telefonnummer, E-Mail-Adresse, Anzahl der Personen und optionale Anmerkungen. Bei Reservierungen ab 8 Personen wird zusätzlich eine Kreditkarte als Sicherheit hinterlegt.</p>
-    <h3>Zweck der Verarbeitung</h3>
-    <p>Die Daten werden ausschließlich zur Verwaltung und Bestätigung von Tischreservierungen verwendet.</p>
-    <h3>Speicherung</h3>
-    <p>Reservierungsdaten werden in einer gesicherten Datenbank (Supabase, EU-Server) gespeichert. Kreditkartendaten werden ausschließlich durch Stripe Inc. verarbeitet und nicht auf unseren Servern gespeichert.</p>
-    <h3>Weitergabe</h3>
-    <p>Daten werden nicht an Dritte weitergegeben, außer an Zahlungsdienstleister (Stripe) zur Hinterlegung der Kreditkarte.</p>
-    <h3>Ihre Rechte</h3>
-    <p>Sie haben das Recht auf Auskunft, Berichtigung, Löschung und Einschränkung der Verarbeitung. Anfragen bitte an: <a href="/cdn-cgi/l/email-protection#264e434a4a4966524e43444f54425f475442084752"><span class="__cf_email__" data-cfemail="c2aaa7aeaead82b6aaa7a0abb0a6bba3b0a6eca3b6">[email&#160;protected]</span></a></p>
-    <h3>Cookies &amp; Analytics</h3>
-    <p>Diese Website verwendet Google Analytics zur anonymen Nutzungsanalyse. Dabei werden Cookies gesetzt. Weitere Informationen: <a href="https://policies.google.com/privacy" target="_blank">Google Datenschutzrichtlinie</a>.</p>
-  </div>
-</div>
-
-<div class="modal-overlay" id="modal-agb" onclick="if(event.target===this)this.style.display='none'">
-  <div class="modal-box">
-    <button class="modal-close" onclick="document.getElementById('modal-agb').style.display='none'">×</button>
-    <h2>Allgemeine Geschäftsbedingungen</h2>
-    <h3>1. Reservierungen</h3>
-    <p>Tischreservierungen sind verbindlich und gelten als bestätigt nach Erhalt der Bestätigungs-E-Mail.</p>
-    <h3>2. Stornierung</h3>
-    <p>Stornierungen müssen mindestens <strong>12 Stunden vor dem reservierten Termin</strong> über den Stornierungslink in der Bestätigungs-E-Mail oder per E-Mail an <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f676a6363604f7b676a6d667d6b766e7d6b216e7b">[email&#160;protected]</a> erfolgen.</p>
-    <h3>3. No-Show Gebühr</h3>
-    <p>Bei Reservierungen ab 8 Personen wird eine Kreditkarte als Sicherheit hinterlegt. Im Falle eines No-Shows (Nichterscheinen ohne rechtzeitige Stornierung) wird eine Gebühr von <strong>€ 5 pro Person</strong> verrechnet.</p>
-  </div>
-</div>
-
+  setInterval(() => {
+    if(!data.length) return;
+    const r = data[idx];
+    slot.classList.remove('visible');
+    setTimeout(() => {
+      slot.querySelector('.review-stars-sm').textContent = '★'.repeat(r.overall_rating);
+      slot.querySelector('.review-quote').textContent = '„' + r.comment + '“';
+      slot.classList.add('visible');
+      idx = (idx + 1) % data.length;
+    }, 400);
+  }, 5000);
+})();
+</script>
 </body>
 </html>
