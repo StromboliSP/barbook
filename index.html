@@ -360,8 +360,9 @@
       transform-origin: 200px 175px;
       will-change: transform, opacity;
   }
-  .cover-bottom-layer { animation: flipCover var(--anim-duration) infinite, toggleBottom var(--anim-duration) infinite; }
-  .cover-top-layer { animation: flipCover var(--anim-duration) infinite, toggleTop var(--anim-duration) infinite; }
+  /* Animation geändert auf '1 forwards' für einmaliges Abspielen */
+  .cover-bottom-layer { animation: flipCover var(--anim-duration) 1 forwards, toggleBottom var(--anim-duration) 1 forwards; }
+  .cover-top-layer { animation: flipCover var(--anim-duration) 1 forwards, toggleTop var(--anim-duration) 1 forwards; }
 
   @keyframes flipCover {
       0%, 15% { transform: rotateY(0deg); animation-timing-function: cubic-bezier(0.5, 0, 1, 1); } 
@@ -385,12 +386,13 @@
       letter-spacing: 3px; 
       opacity: 0;
       filter: url(#deboss-effect);
-      animation: textFade var(--anim-duration) infinite;
+      /* Animation geändert auf '1 forwards' */
+      animation: textFade var(--anim-duration) 1 forwards;
   }
   @keyframes textFade {
       0%, 35% { opacity: 0; transform: translateY(6px); } 
       45%, 95% { opacity: 1; transform: translateY(0); } 
-      98%, 100% { opacity: 0; transform: translateY(-2px); }
+      98%, 100% { opacity: 1; transform: translateY(0); } /* Geändert, damit Text stehen bleibt */
   }
 
   @media (max-width:640px) {
@@ -1004,8 +1006,24 @@ document.addEventListener('touchend',function(e){
 // ===== INIT =====
 async function init() {
   await loadData();
-  renderCalendar(); renderTimeDropdown();
-  setInterval(async()=>{ await loadData(); renderCalendar(); renderTimeDropdown(); }, 60000);
+
+  // Automatisches Auswählen des heutigen Datums beim Öffnen
+  const today = new Date();
+  const todayStr = formatDate(today);
+  
+  // Prüfen, ob heute geöffnet ist und nicht voll
+  if (isOpenDay(todayStr) && !blockedDates.includes(todayStr) && getDayGuestCount(todayStr) < DAY_CAPACITY) {
+    selectDate(todayStr);
+  }
+
+  renderCalendar(); 
+  renderTimeDropdown();
+  
+  setInterval(async()=>{ 
+    await loadData(); 
+    renderCalendar(); 
+    renderTimeDropdown(); 
+  }, 60000);
 }
 init();
 
