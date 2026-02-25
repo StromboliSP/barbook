@@ -11,7 +11,7 @@
   gtag('js', new Date());
   gtag('config', 'G-P5JEYC4H25');
 </script>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600&family=DM+Sans:wght@300;400;500&family=Montserrat:wght@900&display=swap" rel="stylesheet">
 <script src="https://js.stripe.com/v3/"></script>
 
 <style>
@@ -26,6 +26,13 @@
     --surface2: rgba(255,255,255,0.03);
     --success: #55aa77;
     --danger: rgba(220,100,100,0.9);
+    
+    /* barbook Logo Variables */
+    --brand-main: #9cb08f; 
+    --brand-dark: #7a8f6d; 
+    --page-color: #fbf8ef; 
+    --text-color: #18181b; 
+    --anim-duration: 6s; 
   }
   body {
     font-family: 'DM Sans', sans-serif;
@@ -42,14 +49,16 @@
     height: 75px; 
     position: relative;
     border-bottom: 1px solid rgba(0,0,0,0.25);
+    display: flex;
+    justify-content: flex-end; /* Ordnet das barbook-Logo rechts an */
+    align-items: center;
   }
 
-  /* -- Das Logo überlappend und zentriert -- */
+  /* -- Das The Birdyard Logo (links und überlappend) -- */
   .card-header-logo-box {
     position: absolute;
     top: 25px; 
-    left: 50%;
-    transform: translateX(-50%);
+    left: 1.8rem; /* Ursprüngliche Position links */
     z-index: 20;
     width: 90px; height: 90px;
     background: #1a1510;
@@ -59,9 +68,21 @@
     display: flex; align-items: center; justify-content: center;
     overflow: hidden; flex-shrink: 0;
   }
-  
   .card-header-logo { width:82px; height:82px; object-fit:contain; display:block; }
   
+  /* -- Das barbook Logo (rechts) -- */
+  .card-header-barbook {
+    padding-right: 1.8rem;
+    height: 100%;
+    display: flex;
+    align-items: center;
+  }
+  .card-header-barbook svg {
+    height: 55px; /* Skaliert für Mobile */
+    width: auto;
+    display: block;
+  }
+
   .main-card {
     display:grid; grid-template-columns:1fr;
     width:100%; max-width:480px;
@@ -70,7 +91,7 @@
     overflow:hidden;
   }
   
-  /* -- Platz nach unten für das Logo schaffen -- */
+  /* -- Platz nach unten für das The Birdyard Logo -- */
   .calendar-panel { 
     padding: 3.8rem 1.8rem 1.6rem; 
     border-bottom: 1px solid rgba(122,92,42,0.15); 
@@ -100,12 +121,19 @@
     }
     .card-header-logo-box {
       top: 30px;
+      left: clamp(1.4rem, 2vw, 2.2rem);
       width: clamp(80px, 7vw, 110px);
       height: clamp(80px, 7vw, 110px);
     }
     .card-header-logo {
       width: clamp(72px, 6.5vw, 98px);
       height: clamp(72px, 6.5vw, 98px);
+    }
+    .card-header-barbook {
+      padding-right: clamp(1.4rem, 2vw, 2.2rem);
+    }
+    .card-header-barbook svg {
+      height: 65px; /* Etwas größer auf Desktop */
     }
     .calendar-panel {
       border-bottom: none;
@@ -312,6 +340,44 @@
     color:#8a7560;
   }
 
+  /* ── BARBOOK ANIMATIONS ── */
+  .cover-bottom-layer, .cover-top-layer {
+      transform-origin: 200px 175px;
+      will-change: transform, opacity;
+  }
+  .cover-bottom-layer { animation: flipCover var(--anim-duration) infinite, toggleBottom var(--anim-duration) infinite; }
+  .cover-top-layer { animation: flipCover var(--anim-duration) infinite, toggleTop var(--anim-duration) infinite; }
+
+  @keyframes flipCover {
+      0%, 15% { transform: rotateY(0deg); animation-timing-function: cubic-bezier(0.5, 0, 1, 1); } 
+      25% { transform: rotateY(-90deg); animation-timing-function: cubic-bezier(0, 0, 0.2, 1); } 
+      40%, 100% { transform: rotateY(-180deg); } 
+  }
+  @keyframes toggleBottom {
+      0%, 24.99% { opacity: 0; }
+      25%, 100% { opacity: 1; }
+  }
+  @keyframes toggleTop {
+      0%, 24.99% { opacity: 1; }
+      25%, 100% { opacity: 0; }
+  }
+  .brand-text {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 45px;
+      font-weight: 900; 
+      text-transform: uppercase; 
+      fill: var(--text-color);
+      letter-spacing: 3px; 
+      opacity: 0;
+      filter: url(#deboss-effect);
+      animation: textFade var(--anim-duration) infinite;
+  }
+  @keyframes textFade {
+      0%, 35% { opacity: 0; transform: translateY(6px); } 
+      45%, 95% { opacity: 1; transform: translateY(0); } 
+      98%, 100% { opacity: 0; transform: translateY(-2px); }
+  }
+
   @media (max-width:640px) {
     main { padding:0 0.5rem 2rem; }
     .main-card { width:100%; overflow:hidden; }
@@ -326,6 +392,66 @@
       <div class="card-header-logo-box">
         <img src="Logo_TheBirdYard_SOLO.jpg" alt="The Birdyard" class="card-header-logo">
       </div>
+      
+      <div class="card-header-barbook">
+        <svg viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+                <filter id="sticker" x="-20%" y="-20%" width="140%" height="140%">
+                    <feMorphology in="SourceAlpha" operator="dilate" radius="1.5" result="thickened" />
+                    <feGaussianBlur in="thickened" stdDeviation="0.8" result="blurred" />
+                    <feComponentTransfer in="blurred" result="smoothedAlpha">
+                        <feFuncA type="linear" slope="50" intercept="-10" />
+                    </feComponentTransfer>
+                    <feFlood flood-color="#f5ebd0" result="edgeColor" />
+                    <feComposite in="edgeColor" in2="smoothedAlpha" operator="in" result="coloredBorder" />
+                    <feDropShadow in="coloredBorder" dx="2" dy="8" stdDeviation="5" flood-color="rgba(0,0,0,0.25)" result="shadow" />
+                    <feMerge>
+                        <feMergeNode in="shadow" />
+                        <feMergeNode in="coloredBorder" />
+                        <feMergeNode in="SourceGraphic" />
+                    </feMerge>
+                </filter>
+                <filter id="deboss-effect" x="-10%" y="-10%" width="120%" height="120%">
+                    <feOffset dx="0" dy="1.2" />
+                    <feGaussianBlur stdDeviation="1" result="offset-blur" />
+                    <feComposite operator="out" in="SourceGraphic" in2="offset-blur" result="inverse" />
+                    <feFlood flood-color="black" flood-opacity="0.5" result="shadow-color" />
+                    <feComposite operator="in" in="shadow-color" in2="inverse" result="inner-shadow" />
+                    <feOffset dx="0" dy="-0.6" in="SourceGraphic" result="offset-highlight" />
+                    <feComposite operator="out" in="offset-highlight" in2="SourceGraphic" result="inverse-highlight" />
+                    <feFlood flood-color="white" flood-opacity="0.4" result="highlight-color" />
+                    <feComposite operator="in" in="highlight-color" in2="inverse-highlight" result="inner-highlight" />
+                    <feMerge>
+                        <feMergeNode in="SourceGraphic" />
+                        <feMergeNode in="inner-shadow" />
+                        <feMergeNode in="inner-highlight" />
+                    </feMerge>
+                </filter>
+                <linearGradient id="foldShadow" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="rgba(0,0,0,0)" />
+                    <stop offset="30%" stop-color="rgba(0,0,0,0.02)" />
+                    <stop offset="50%" stop-color="rgba(0,0,0,0.1)" />
+                    <stop offset="70%" stop-color="rgba(0,0,0,0.02)" />
+                    <stop offset="100%" stop-color="rgba(0,0,0,0)" />
+                </linearGradient>
+            </defs>
+            <g filter="url(#sticker)">
+                <g class="cover-bottom-layer">
+                    <rect x="200" y="68" width="145" height="214" fill="var(--brand-dark)" rx="4" />
+                    <rect x="200" y="75" width="125" height="200" fill="var(--page-color)" rx="2" />
+                </g>
+                <rect x="200" y="68" width="145" height="214" fill="var(--brand-dark)" rx="4" />
+                <rect x="200" y="75" width="125" height="200" fill="var(--page-color)" rx="2" />
+                <rect x="180" y="75" width="40" height="200" fill="url(#foldShadow)" />
+                <g class="cover-top-layer">
+                    <rect x="200" y="68" width="145" height="214" fill="var(--brand-main)" rx="4" />
+                    <rect x="320" y="68" width="2" height="214" fill="#18181b" opacity="0.1" />
+                </g>
+                <text x="200" y="188" text-anchor="middle" class="brand-text">barbook</text>
+            </g>
+        </svg>
+      </div>
+
     </div>
     <div class="calendar-panel">
       <div class="cal-header">
