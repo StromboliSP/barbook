@@ -34,33 +34,34 @@
     align-items: center;
     font-size: clamp(13px, 1.1vw, 17px);
   }
-main { display:flex; align-items:flex-start; justify-content:center; padding:0 1rem 3rem; width:100%; }
+  main { display:flex; align-items:flex-start; justify-content:center; padding:0 1rem 3rem; width:100%; }
+  
+  /* -- Der braune Balken oben -- */
   .card-header {
-    background:#2e2a24;
-    padding:1.4rem 1.8rem;
-    display:flex;
-    align-items:center;
-    gap:1.2rem;
-    border-bottom:1px solid rgba(0,0,0,0.25);
+    background: #2e2a24;
+    height: 75px; 
+    position: relative;
+    border-bottom: 1px solid rgba(0,0,0,0.25);
   }
+
+  /* -- Das Logo überlappend und zentriert -- */
   .card-header-logo-box {
-    width:90px; height:90px;
-    background:#1a1510;
-    border:1px solid rgba(180,145,80,0.35);
-    box-shadow:0 0 12px rgba(180,145,80,0.15), inset 0 0 8px rgba(0,0,0,0.4);
-    border-radius:4px;
-    display:flex; align-items:center; justify-content:center;
-    overflow:hidden; flex-shrink:0;
+    position: absolute;
+    top: 25px; 
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 20;
+    width: 90px; height: 90px;
+    background: #1a1510;
+    border: 1px solid rgba(180,145,80,0.35);
+    box-shadow: 0 0 12px rgba(180,145,80,0.15), inset 0 0 8px rgba(0,0,0,0.4);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden; flex-shrink: 0;
   }
+  
   .card-header-logo { width:82px; height:82px; object-fit:contain; display:block; }
-  .card-header-title {
-    font-family:'DM Sans',sans-serif;
-    font-size:0.75rem;
-    font-weight:400;
-    color:rgba(235,215,175,0.9);
-    letter-spacing:0.3em;
-    text-transform:uppercase;
-  }
+  
   .main-card {
     display:grid; grid-template-columns:1fr;
     width:100%; max-width:480px;
@@ -68,8 +69,17 @@ main { display:flex; align-items:flex-start; justify-content:center; padding:0 1
     box-shadow:0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(122,92,42,0.2);
     overflow:hidden;
   }
-  .calendar-panel { padding:1.6rem 1.8rem; border-bottom:1px solid rgba(122,92,42,0.15); background:#e8dcc8; }
-  .form-panel { padding:1.6rem 1.8rem; background:#ede3d2; }
+  
+  /* -- Platz nach unten für das Logo schaffen -- */
+  .calendar-panel { 
+    padding: 3.8rem 1.8rem 1.6rem; 
+    border-bottom: 1px solid rgba(122,92,42,0.15); 
+    background: #e8dcc8; 
+  }
+  .form-panel { 
+    padding: 3.8rem 1.8rem 1.6rem; 
+    background: #ede3d2; 
+  }
 
   /* ── DESKTOP: two-column side-by-side layout ── */
   @media (min-width:900px) {
@@ -86,29 +96,25 @@ main { display:flex; align-items:flex-start; justify-content:center; padding:0 1
     }
     .card-header {
       grid-column: 1 / -1;
-      padding: clamp(1rem, 1.4vw, 1.5rem) clamp(1.4rem, 2vw, 2.2rem);
-      gap: clamp(0.8rem, 1.2vw, 1.4rem);
+      height: 90px;
     }
     .card-header-logo-box {
-      width: clamp(72px, 6.5vw, 110px);
-      height: clamp(72px, 6.5vw, 110px);
+      top: 30px;
+      width: clamp(80px, 7vw, 110px);
+      height: clamp(80px, 7vw, 110px);
     }
     .card-header-logo {
-      width: clamp(64px, 5.8vw, 98px);
-      height: clamp(64px, 5.8vw, 98px);
-    }
-    .card-header-title {
-      font-size: clamp(0.65rem, 0.7vw, 0.85rem);
-      letter-spacing: clamp(0.2em, 0.4vw, 0.35em);
+      width: clamp(72px, 6.5vw, 98px);
+      height: clamp(72px, 6.5vw, 98px);
     }
     .calendar-panel {
       border-bottom: none;
       border-right: 1px solid rgba(122,92,42,0.15);
-      padding: clamp(1.2rem, 1.8vw, 2.2rem);
+      padding: 4.5rem clamp(1.2rem, 1.8vw, 2.2rem) clamp(1.2rem, 1.8vw, 2.2rem);
       background: #e8dcc8;
     }
     .form-panel {
-      padding: clamp(1.2rem, 1.8vw, 2.2rem);
+      padding: 4.5rem clamp(1.2rem, 1.8vw, 2.2rem) clamp(1.2rem, 1.8vw, 2.2rem);
       background: #ede3d2;
     }
     .cal-grid {
@@ -171,7 +177,6 @@ main { display:flex; align-items:flex-start; justify-content:center; padding:0 1
 
   /* Form */
   .panel-title { font-family:'DM Sans',sans-serif; font-size:0.62rem; font-weight:400; letter-spacing:0.3em; text-transform:uppercase; margin-bottom:0.2rem; color:#8a7560; }
-  .panel-subtitle { color:#8a7560; font-size:0.76rem; margin-bottom:1rem; }
   .date-trigger {
     background:rgba(122,92,42,0.08); border:1px solid rgba(122,92,42,0.2);
     border-radius:0; padding:0.5rem 0.7rem; margin-bottom:0.9rem;
@@ -265,6 +270,7 @@ main { display:flex; align-items:flex-start; justify-content:center; padding:0 1
   ::-webkit-scrollbar { width:3px; }
   ::-webkit-scrollbar-track { background:transparent; }
   ::-webkit-scrollbar-thumb { background:rgba(122,92,42,0.2); border-radius:2px; }
+  
   /* ── REVIEW ROTATOR ── */
   .review-rotator {
     margin-top:1.4rem;
@@ -278,10 +284,14 @@ main { display:flex; align-items:flex-start; justify-content:center; padding:0 1
     background:rgba(255,255,255,0.5);
   }
   .review-slot {
-    opacity:0;
-    transition:opacity 0.8s ease;
+    opacity: 0;
+    transform: translateY(12px) scale(0.98);
+    transition: opacity 0.8s ease, transform 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
   }
-  .review-slot.visible { opacity:1; }
+  .review-slot.visible { 
+    opacity: 1; 
+    transform: translateY(0) scale(1);
+  }
   .review-stars-sm {
     color:#c8902a;
     font-size:0.62rem;
@@ -310,14 +320,12 @@ main { display:flex; align-items:flex-start; justify-content:center; padding:0 1
 </style>
 </head>
 <body>
-</div>
 <main>
   <div class="main-card">
     <div class="card-header">
       <div class="card-header-logo-box">
         <img src="Logo_TheBirdYard_SOLO.jpg" alt="The Birdyard" class="card-header-logo">
       </div>
-      <div class="card-header-title">Tischreservierung</div>
     </div>
     <div class="calendar-panel">
       <div class="cal-header">
@@ -338,7 +346,6 @@ main { display:flex; align-items:flex-start; justify-content:center; padding:0 1
     </div>
     <div class="form-panel">
       <div class="panel-title">Neue Reservierung</div>
-      <div class="panel-subtitle">Tisch reservieren</div>
       <div class="date-trigger" id="date-display" onclick="toggleDateDropdown()">
         📅 <span id="date-display-text">Bitte Datum wählen</span>
         <span class="dd-arrow" id="dd-arrow">▼</span>
@@ -990,4 +997,9 @@ init();
     <h3>2. Stornierung</h3>
     <p>Stornierungen müssen mindestens <strong>12 Stunden vor dem reservierten Termin</strong> über den Stornierungslink in der Bestätigungs-E-Mail oder per E-Mail an <a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="0f676a6363604f7b676a6d667d6b766e7d6b216e7b">[email&#160;protected]</a> erfolgen.</p>
     <h3>3. No-Show Gebühr</h3>
-    <p>Bei Reservierungen ab 8 Personen wird eine Kreditkarte als Sicherheit hinterlegt. Im Falle eines No-Shows (Nichterscheinen ohne rechtzeitige Stornierung) wird eine Gebühr von <strong>€
+    <p>Bei Reservierungen ab 8 Personen wird eine Kreditkarte als Sicherheit hinterlegt. Im Falle eines No-Shows (Nichterscheinen ohne rechtzeitige Stornierung) wird eine Gebühr von <strong>€ 5 pro Person</strong> verrechnet.</p>
+  </div>
+</div>
+
+</body>
+</html>
